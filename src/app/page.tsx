@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-const SHOPIFY_CHECKOUT_URL = "https://cardarena.net"; // 🔗 رابط المتجر الرئيسي بعد التعديل
+const SHOPIFY_CHECKOUT_URL =
+  "https://YOUR-STORE.myshopify.com/cart/PRODUCT_ID:1"; // 🔗 استبدل برابط Checkout من Shopify
 
 export default function Page() {
   return (
@@ -24,15 +25,12 @@ export default function Page() {
       {/* Main */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-12 text-center space-y-16">
         <p className="text-lg sm:text-xl text-gray-700 max-w-2xl leading-relaxed">
-          جرّب أول <span className="font-semibold">3 أسئلة مجانًا</span> من كل لعبة،
-          ثم ادفع لمتابعة التحدي والحصول على الوصول الكامل 🚀
+          جرّب أول <span className="font-semibold">3 أسئلة مجانًا</span> من كل لعبة، ثم ادفع لمتابعة التحدي والحصول على الوصول الكامل 🚀
         </p>
 
         {/* CTA */}
         <a
           href={SHOPIFY_CHECKOUT_URL}
-          target="_blank"
-          rel="noopener noreferrer"
           className="inline-block bg-black text-white px-10 py-3 rounded-full text-lg font-semibold shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
         >
           اشترِ الآن
@@ -40,14 +38,14 @@ export default function Page() {
 
         {/* الألعاب بالعرض */}
         <div className="w-full max-w-6xl flex flex-col sm:flex-row justify-center items-stretch gap-10 mt-10">
-          {/* لعبة سمر */}
+          {/* 🎴 لعبة سمر */}
           <div className="flex-1 flex flex-col items-center">
             <div className="relative w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src="/samar-card.jpg"
                 alt="لعبة سمر"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: "cover" }}
                 className="rounded-3xl transition-transform duration-500 hover:scale-105"
               />
             </div>
@@ -58,51 +56,51 @@ export default function Page() {
               الطريفة. تخلق جو رايق ومناسب للسهرات أو الجلسات الطويلة بعد يوم طويل.
             </p>
             <a
-              href="https://samardemo2.netlify.app/"
+              href="https://samarnew2.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-block bg-black text-white px-10 py-3 rounded-full font-medium hover:bg-gray-800 transition"
             >
-              جرّب الديمو 🎮
+              ابدأ اللعبة 🎮
             </a>
           </div>
 
-          {/* لعبة سوالف بيتنا */}
+          {/* 🎴 لعبة سوالف بيتنا */}
           <div className="flex-1 flex flex-col items-center">
             <div className="relative w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src="/main.png"
                 alt="لعبة سوالف بيتنا"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: "cover" }}
                 className="rounded-3xl transition-transform duration-500 hover:scale-105"
               />
             </div>
             <h2 className="text-2xl font-bold mt-8">سوالف بيتنا</h2>
             <p className="text-gray-700 text-base leading-relaxed mt-4 px-2">
               اللعبة اللي تخليك ترجع لأيام العائلة والضحك على المواقف القديمة.
-              تختبر ذكرياتك وسرعة بديهتك في مواقف "بيتية" واقعية – من الطبخ للضيوف
+              تختبر ذكرياتك وسرعة بديهتك في مواقف &quot;بيتية&quot; واقعية – من الطبخ للضيوف
               للمشاكل الصغيرة اليومية. مثالية للعائلة والمجموعات الكبيرة وتضمن
               ضحكًا من القلب!
             </p>
             <a
-              href="https://demosawalf.netlify.app/"
+              href="https://know-your-kid.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-block bg-black text-white px-10 py-3 rounded-full font-medium hover:bg-gray-800 transition"
             >
-              جرّب الديمو 🎮
+              ابدأ اللعبة 🎮
             </a>
           </div>
 
-          {/* لعبة تخيل لو */}
+          {/* 🎴 لعبة تخيل لو */}
           <div className="flex-1 flex flex-col items-center">
             <div className="relative w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src="/khayal.jpg"
                 alt="لعبة تخيل لو"
-                layout="fill"
-                objectFit="cover"
+                fill
+                style={{ objectFit: "cover" }}
                 className="rounded-3xl transition-transform duration-500 hover:scale-105"
               />
             </div>
@@ -113,12 +111,12 @@ export default function Page() {
               تنسى!
             </p>
             <a
-              href="https://demokhayalk.netlify.app/"
+              href="https://general-quiz.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-block bg-black text-white px-10 py-3 rounded-full font-medium hover:bg-gray-800 transition"
             >
-              جرّب الديمو 🎮
+              ابدأ اللعبة 🎮
             </a>
           </div>
         </div>
