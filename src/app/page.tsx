@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 const SHOPIFY_CHECKOUT_URL =
-  "https://cardarena.net/#ea0a55f5689f615f17470d2961f8ec54"; // ✅ رابط الشراء الجديد
+  "https://cardarena.net/#ea0a55f5689f615f17470d2961f8ec54";
 
 export default function Page() {
   return (
@@ -26,7 +26,8 @@ export default function Page() {
         {/* Main */}
         <main className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-12 text-center space-y-16">
           <p className="text-base sm:text-lg text-gray-700 max-w-2xl leading-relaxed">
-            جرّب أول <span className="font-semibold">3 أسئلة مجانًا</span> من كل لعبة، ثم ادفع لمتابعة التحدي والحصول على الوصول الكامل 🚀
+            جرّب أول <span className="font-semibold">3 أسئلة مجانًا</span> من كل
+            لعبة، ثم ادفع لمتابعة التحدي والحصول على الوصول الكامل 🚀
           </p>
 
           {/* زر الشراء */}
@@ -41,26 +42,23 @@ export default function Page() {
 
           {/* الألعاب */}
           <div className="w-full max-w-6xl flex flex-col lg:flex-row flex-wrap justify-center items-stretch gap-10 mt-10">
-
             {/* 🎴 سمر */}
             <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
-              <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
-                <div className="relative w-full aspect-[1/1] sm:aspect-[4/5]">
-                  <Image
-                    src="/samar-card.jpg"
-                    alt="لعبة سمر"
-                    fill
-                    className="rounded-3xl transition-transform duration-500 hover:scale-105 object-contain sm:object-cover"
-                    sizes="(max-width: 640px) 100vw, 400px"
-                    priority
-                  />
-                </div>
+              <div className="flex justify-center items-center w-full bg-white rounded-3xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/samar-card.jpg"
+                  alt="لعبة سمر"
+                  width={500}
+                  height={700}
+                  className="w-full h-auto max-h-[calc(100vh-200px)] object-contain transition-transform duration-500 hover:scale-105"
+                />
               </div>
               <h2 className="text-2xl font-bold mt-8">سمر</h2>
               <p className="text-gray-700 text-base leading-relaxed mt-4 px-2">
-                لعبة هادئة ودافئة تجمع بين الصراحة والفضفضة. بطاقاتها مليانة أسئلة
-                عميقة ومسلية تخليك تعرف اللي حولك أكثر — من مشاعرهم إلى مواقفهم
-                الطريفة. تخلق جو رايق ومناسب للسهرات أو الجلسات الطويلة بعد يوم طويل.
+                لعبة هادئة ودافئة تجمع بين الصراحة والفضفضة. بطاقاتها مليانة
+                أسئلة عميقة ومسلية تخليك تعرف اللي حولك أكثر — من مشاعرهم إلى
+                مواقفهم الطريفة. تخلق جو رايق ومناسب للسهرات أو الجلسات الطويلة
+                بعد يوم طويل.
               </p>
               <a
                 href="https://samardemo2.netlify.app/"
@@ -74,26 +72,23 @@ export default function Page() {
 
             {/* 🎴 سوالف بيتنا */}
             <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
-              <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
-                <div className="relative w-full aspect-[1/1] sm:aspect-[4/5]">
-                  <Image
-                    src="/main.png"
-                    alt="لعبة سوالف بيتنا"
-                    fill
-                    className="rounded-3xl transition-transform duration-500 hover:scale-105 object-contain sm:object-cover"
-                    sizes="(max-width: 640px) 100vw, 400px"
-                    priority
-                  />
-                </div>
+              <div className="flex justify-center items-center w-full bg-white rounded-3xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/main.png"
+                  alt="لعبة سوالف بيتنا"
+                  width={500}
+                  height={700}
+                  className="w-full h-auto max-h-[calc(100vh-200px)] object-contain transition-transform duration-500 hover:scale-105"
+                />
               </div>
               <h2 className="text-2xl font-bold mt-8">سوالف بيتنا</h2>
               <p className="text-gray-700 text-base leading-relaxed mt-4 px-2">
-                مين يعرفك أكثر؟ <span className="font-semibold">سوالف بيتنا</span> هي
-                التحدي العائلي الأمتع بينك وبين أمك وأبوك! 👨‍👩‍👦  
-                اسألهم أسئلة عنك وشوف مين فعلاً يعرفك أكثر — النتيجة؟ ضحك، مفاجآت،
-                ومنافسة عائلية ما تنسى! لعبة تجمع العيلة وتخلي الجلسة مليانة حماس
-                وذكريات جميلة. جاهز تختبرهم؟  
-                <br />
+                مين يعرفك أكثر؟{" "}
+                <span className="font-semibold">سوالف بيتنا</span> هي التحدي
+                العائلي الأمتع بينك وبين أمك وأبوك! 👨‍👩‍👦 اسألهم أسئلة عنك
+                وشوف مين فعلاً يعرفك أكثر — النتيجة؟ ضحك، مفاجآت، ومنافسة عائلية
+                ما تنسى! لعبة تجمع العيلة وتخلي الجلسة مليانة حماس وذكريات
+                جميلة. جاهز تختبرهم؟ <br />
                 <span className="font-semibold text-black">
                   ابدأ التحدي الآن واكتشف من يعرفك أكثر!
                 </span>
@@ -110,23 +105,20 @@ export default function Page() {
 
             {/* 🎴 تخيل لو */}
             <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
-              <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
-                <div className="relative w-full aspect-[1/1] sm:aspect-[4/5]">
-                  <Image
-                    src="/khayal.jpg"
-                    alt="لعبة تخيل لو"
-                    fill
-                    className="rounded-3xl transition-transform duration-500 hover:scale-105 object-contain sm:object-cover"
-                    sizes="(max-width: 640px) 100vw, 400px"
-                    priority
-                  />
-                </div>
+              <div className="flex justify-center items-center w-full bg-white rounded-3xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/khayal.jpg"
+                  alt="لعبة تخيل لو"
+                  width={500}
+                  height={700}
+                  className="w-full h-auto max-h-[calc(100vh-200px)] object-contain transition-transform duration-500 hover:scale-105"
+                />
               </div>
               <h2 className="text-2xl font-bold mt-8">تخيل لو</h2>
               <p className="text-gray-700 text-base leading-relaxed mt-4 px-2">
-                لعبة خفيفة ومليانة ضحك ومواقف غريبة! كل لاعب ياخذ سيناريو خيالي ويخلي
-                الكل يتخيل كيف ممكن يتصرف — النتيجة؟ ضحك، مواقف مجنونة، وجلسة ما
-                تنسى!
+                لعبة خفيفة ومليانة ضحك ومواقف غريبة! كل لاعب ياخذ سيناريو خيالي
+                ويخلي الكل يتخيل كيف ممكن يتصرف — النتيجة؟ ضحك، مواقف مجنونة،
+                وجلسة ما تنسى!
               </p>
               <a
                 href="https://demokhayalk.netlify.app/"
@@ -147,7 +139,7 @@ export default function Page() {
         </footer>
       </div>
 
-      {/* ✅ كود Chatbase مضاف هنا */}
+      {/* ✅ كود Chatbase */}
       <script
         dangerouslySetInnerHTML={{
           __html: `(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="vO4t_xmN-nOwkIJBhFii9";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();`,
