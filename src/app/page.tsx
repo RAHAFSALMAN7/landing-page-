@@ -41,16 +41,18 @@ export default function Page() {
 
           {/* الألعاب */}
           <div className="w-full max-w-6xl flex flex-col lg:flex-row flex-wrap justify-center items-stretch gap-10 mt-10">
-            
+
             {/* 🎴 سمر */}
             <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
               <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
-                <div className="relative w-full aspect-[4/5] sm:aspect-[1/1]">
+                <div className="relative w-full aspect-[1/1] sm:aspect-[4/5]">
                   <Image
                     src="/samar-card.jpg"
                     alt="لعبة سمر"
                     fill
-                    className="object-cover sm:object-contain rounded-3xl transition-transform duration-500 hover:scale-105"
+                    className="rounded-3xl transition-transform duration-500 hover:scale-105 object-contain sm:object-cover"
+                    sizes="(max-width: 640px) 100vw, 400px"
+                    priority
                   />
                 </div>
               </div>
@@ -73,12 +75,14 @@ export default function Page() {
             {/* 🎴 سوالف بيتنا */}
             <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
               <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
-                <div className="relative w-full aspect-[4/5] sm:aspect-[1/1]">
+                <div className="relative w-full aspect-[1/1] sm:aspect-[4/5]">
                   <Image
                     src="/main.png"
                     alt="لعبة سوالف بيتنا"
                     fill
-                    className="object-cover sm:object-contain rounded-3xl transition-transform duration-500 hover:scale-105"
+                    className="rounded-3xl transition-transform duration-500 hover:scale-105 object-contain sm:object-cover"
+                    sizes="(max-width: 640px) 100vw, 400px"
+                    priority
                   />
                 </div>
               </div>
@@ -107,12 +111,14 @@ export default function Page() {
             {/* 🎴 تخيل لو */}
             <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
               <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
-                <div className="relative w-full aspect-[4/5] sm:aspect-[1/1]">
+                <div className="relative w-full aspect-[1/1] sm:aspect-[4/5]">
                   <Image
                     src="/khayal.jpg"
                     alt="لعبة تخيل لو"
                     fill
-                    className="object-cover sm:object-contain rounded-3xl transition-transform duration-500 hover:scale-105"
+                    className="rounded-3xl transition-transform duration-500 hover:scale-105 object-contain sm:object-cover"
+                    sizes="(max-width: 640px) 100vw, 400px"
+                    priority
                   />
                 </div>
               </div>
