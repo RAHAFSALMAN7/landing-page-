@@ -42,14 +42,14 @@ export default function Page() {
           {/* الألعاب */}
           <div className="w-full max-w-6xl flex flex-col lg:flex-row flex-wrap justify-center items-stretch gap-10 mt-10">
             {/* 🎴 سمر */}
-            <div className="flex-1 min-w-[300px] max-w-[400px] flex flex-col items-center mx-auto">
-              <div className="relative w-full h-[400px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
+              <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
                 <Image
                   src="/samar-card.jpg"
                   alt="لعبة سمر"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="rounded-3xl transition-transform duration-500 hover:scale-105"
+                  width={500}
+                  height={500}
+                  className="w-full h-auto rounded-3xl transition-transform duration-500 hover:scale-105 object-contain"
                 />
               </div>
               <h2 className="text-2xl font-bold mt-8">سمر</h2>
@@ -69,25 +69,27 @@ export default function Page() {
             </div>
 
             {/* 🎴 سوالف بيتنا */}
-            <div className="flex-1 min-w-[300px] max-w-[400px] flex flex-col items-center mx-auto">
-              <div className="relative w-full h-[400px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
+              <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
                 <Image
                   src="/main.png"
                   alt="لعبة سوالف بيتنا"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="rounded-3xl transition-transform duration-500 hover:scale-105"
+                  width={500}
+                  height={500}
+                  className="w-full h-auto rounded-3xl transition-transform duration-500 hover:scale-105 object-contain"
                 />
               </div>
               <h2 className="text-2xl font-bold mt-8">سوالف بيتنا</h2>
               <p className="text-gray-700 text-base leading-relaxed mt-4 px-2">
-                مين يعرفك أكثر؟   
-                <span className="font-semibold">سوالف بيتنا</span> هي التحدي العائلي الأمتع بينك وبين أمك وأبوك! 👨‍👩‍👦  
-                اسألهم أسئلة عنك وشوف مين فعلاً يعرفك أكثر — النتيجة؟ ضحك، مفاجآت، ومنافسة عائلية ما تنسى!  
-                لعبة تجمع العيلة وتخلي الجلسة مليانة حماس وذكريات جميلة   
-                جاهز تختبرهم؟   
+                مين يعرفك أكثر؟ <span className="font-semibold">سوالف بيتنا</span> هي
+                التحدي العائلي الأمتع بينك وبين أمك وأبوك! 👨‍👩‍👦  
+                اسألهم أسئلة عنك وشوف مين فعلاً يعرفك أكثر — النتيجة؟ ضحك، مفاجآت،
+                ومنافسة عائلية ما تنسى! لعبة تجمع العيلة وتخلي الجلسة مليانة حماس
+                وذكريات جميلة. جاهز تختبرهم؟  
                 <br />
-                <span className="font-semibold text-black">ابدأ التحدي الآن واكتشف من يعرفك أكثر!</span>
+                <span className="font-semibold text-black">
+                  ابدأ التحدي الآن واكتشف من يعرفك أكثر!
+                </span>
               </p>
               <a
                 href="https://demosawalf.netlify.app/"
@@ -100,14 +102,14 @@ export default function Page() {
             </div>
 
             {/* 🎴 تخيل لو */}
-            <div className="flex-1 min-w-[300px] max-w-[400px] flex flex-col items-center mx-auto">
-              <div className="relative w-full h-[400px] sm:h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="flex-1 min-w-[280px] max-w-[400px] flex flex-col items-center mx-auto">
+              <div className="w-full rounded-3xl overflow-hidden shadow-2xl bg-white">
                 <Image
                   src="/khayal.jpg"
                   alt="لعبة تخيل لو"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="rounded-3xl transition-transform duration-500 hover:scale-105"
+                  width={500}
+                  height={500}
+                  className="w-full h-auto rounded-3xl transition-transform duration-500 hover:scale-105 object-contain"
                 />
               </div>
               <h2 className="text-2xl font-bold mt-8">تخيل لو</h2>
