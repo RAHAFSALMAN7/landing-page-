@@ -66,8 +66,12 @@ export default function Page() {
     popup.id = "chatbase-popup";
     popup.innerHTML = \`
       <div class="popup-content">
+      {/* eslint-disable react/no-unescaped-entities */}
+
         <p>✨ هل ترغب بالتعرف علينا أكثر؟<br/>
         شات بوتنا بالزاوية جاهز يحكي معك ويجاوب على أي استفسار 🤖</p>
+        {/* eslint-enable react/no-unescaped-entities */}
+
         <button id="close-popup">×</button>
       </div>
     \`;
