@@ -16,7 +16,7 @@ export default function Page() {
     const points = Array.from({ length: 15 }).map((_, i) => ({
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
-      width: `${Math.random() * 10 + 6}px`,
+      width: `${Math.random() * 10 + 5}px`,
       height: `${Math.random() * 10 + 6}px`,
       color:
         i % 3 === 0 ? "#e6d2b5" : i % 3 === 1 ? "#f3e8d9" : "#d4b893",
@@ -131,7 +131,7 @@ export default function Page() {
         <nav className="fixed top-0 left-0 right-0 bg-[#fff5e9]/80 backdrop-blur-md shadow-sm z-50 py-3 border-b border-[#e9dfd3]">
           <div className="max-w-6xl mx-auto flex items-center justify-between px-6">
             <h1 className="font-extrabold text-xl text-[#5b4031]">
-              Spark of Positivity ✨
+              Spark of Positivity ✨ - ومضات ايجابية
             </h1>
             <div className="flex gap-6 text-sm sm:text-base font-semibold text-[#5b4031]/80">
               <a href="#samar" className="hover:text-[#080844] transition-colors">
@@ -150,103 +150,66 @@ export default function Page() {
           </div>
         </nav>
 
-        {/* 🌟 Hero Section مع الصورة الجديدة */}
-        <section className="relative flex flex-col items-center text-center pt-32 pb-24 px-6 overflow-hidden bg-[#fff5e9]">
-          {/* 🖼️ خلفية الصورة */}
-          <div className="absolute inset-0 w-full h-full z-0">
-            <Image
-              src="/pic1.png"
-              alt="Spark of Positivity Hero Image"
-              fill
-              priority
-              quality={95}
-              className="object-cover opacity-75 brightness-[1.05] saturate-110"
-            />
-          </div>
+     {/* 🌟 Hero Section متوسط الارتفاع */}
+<section className="relative flex flex-col items-center justify-center text-center h-[65vh] sm:h-[70vh] px-6 overflow-hidden bg-[#fff5e9]">
+  {/* 🖼️ خلفية الصورة */}
+  <div className="absolute inset-0 w-full h-full z-0">
+    <Image
+      src="/banar.jpg"
+      alt="Spark of Positivity Hero Image"
+      fill
+      priority
+      quality={95}
+      className="object-cover"
+    />
+  </div>
 
-          {/* ✨ لمعة ذهبية متحركة */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-[#f9e7d3]/50 to-transparent mix-blend-overlay"
-            animate={{
-              backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            style={{ backgroundSize: "200% 100%" }}
-          />
+  {/* ✨ لمعة خفيفة */}
+  <motion.div
+    className="absolute inset-0 bg-gradient-to-r from-transparent via-[#f9e7d3]/30 to-transparent mix-blend-overlay"
+    animate={{
+      backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"],
+    }}
+    transition={{
+      duration: 10,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    style={{ backgroundSize: "200% 100%" }}
+  />
 
-          {/* 🟤 طبقة شفافة فوق الصورة */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#fffaf3]/80 via-[#fefaf6]/70 to-[#f9f3ec]/90 z-[1]" />
+  {/* ⚡ المحتوى */}
+  <div className="relative z-10 flex flex-col items-center justify-center text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)]">
+    <motion.h1
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      className="text-4xl sm:text-6xl font-extrabold mb-6 leading-tight"
+    >
+     </motion.h1>
 
-          {/* ✨ زخارف متحركة */}
-          <div className="absolute inset-0 z-[2] overflow-hidden">
-            {decorations.map((d, i) => (
-              <motion.span
-                key={i}
-                initial={{
-                  opacity: 0.4,
-                  y: d.yStart,
-                  x: d.xStart,
-                  scale: d.scale,
-                }}
-                animate={{
-                  y: [0, -30, 0],
-                  opacity: [0.3, 0.8, 0.3],
-                }}
-                transition={{
-                  duration: d.duration,
-                  repeat: Infinity,
-                  delay: d.delay,
-                }}
-                className="absolute rounded-full blur-[1px]"
-                style={{
-                  top: d.top,
-                  left: d.left,
-                  width: d.width,
-                  height: d.height,
-                  backgroundColor: d.color,
-                }}
-              />
-            ))}
-          </div>
+    <motion.p
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.4, duration: 1 }}
+      className="text-lg sm:text-xl max-w-2xl mb-8 font-medium text-white"
+    >
+     </motion.p>
 
-          {/* 💫 المحتوى الأمامي */}
-          <div className="relative z-[3] flex flex-col items-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9 }}
-              className="text-4xl sm:text-5xl font-extrabold text-[#3d2c1e] mb-6 leading-tight drop-shadow-[0_2px_3px_rgba(255,255,255,0.8)]"
-            >
-              مرحبًا بك في{" "}
-              <span className="text-[#080844] animate-pulse-slow">
-                Spark of Positivity
-              </span>
-            </motion.h1>
+    <motion.a
+      href={SHOPIFY_CHECKOUT_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+className="bg-[#fffaf3] text-[#080844] px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
+      whileHover={{ scale: 1.05 }}
+    >
+      اشترِ الآن وابدأ المغامرة
+    </motion.a>
+  </div>
+</section>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 1 }}
-              className="text-lg sm:text-xl max-w-2xl text-[#4b3b2d] leading-relaxed mb-8"
-            >
-              ألعاب اجتماعية  مصمّمة لتملأ يومك بالضحك، المشاعر، والطاقة الإيجابية.
-            </motion.p>
 
-            <motion.a
-              href={SHOPIFY_CHECKOUT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#080700] text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-            >
-              اشترِ الآن وابدأ المغامرة
-            </motion.a>
-          </div>
-        </section>
+
 
         {/* ⚡ المميزات */}
         <section className="py-16 bg-[#fefaf6] text-center">
@@ -274,48 +237,88 @@ export default function Page() {
             ))}
           </div>
         </section>
-  {/* 🧠 قسم اختبار الشخصية + 💖 قصة Spark of Positivity */}
+  {/* 💖 القصة + الفيديو + الكويز */}
 <section className="bg-[#fffaf3] py-20 px-6">
-  <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-    
-    {/* 🧠 قسم اختبار الشخصية */}
+  <div className="max-w-6xl mx-auto flex flex-col gap-20">
+
+    {/* 🔹 الصف الأول: القصة + الفيديو */}
+    <div className="flex flex-col lg:flex-row items-start justify-between gap-12">
+      
+      {/* 💫 قصة Spark of Positivity */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="flex-1 flex flex-col justify-between text-center lg:text-right bg-[#fff5e9] rounded-3xl shadow-md border border-[#f1e4d3] p-6 sm:p-8 min-h-[550px] sm:min-h-[610px] md:min-h-[650px]"
+      >
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3d2c1e] mb-6 sm:mb-8">
+          💫 قصة Spark of Positivity
+        </h2>
+
+        <div className="flex flex-col gap-4 justify-center flex-grow">
+          <p className="text-[#4b3b2d] leading-relaxed text-base sm:text-lg md:text-xl">
+            بدأت فكرة <span className="font-semibold text-[#080844]">Spark of Positivity</span> من جلسة عائلية بسيطة
+            مليانة ضحك وفضفضة حقيقية. وقتها اكتشفنا إن اللحظات الصادقة هي اللي تخلق أقوى الروابط،
+            وإن اللعب مش بس متعة… هو وسيلة للتقارب، للضحك، وللتعبير عن نفسنا بدون أحكام.
+          </p>
+
+          <p className="text-[#4b3b2d] leading-relaxed text-base sm:text-lg md:text-xl">
+            من هون وُلدت الفكرة 💡: ليش ما نصمم ألعاب تخلّي كل جلسة 
+            مساحة دافئة للضحك، للمشاعر، وللتواصل الحقيقي؟
+            وكل كرت فيها يحمل "شرارة" صغيرة من الإيجابية.
+          </p>
+
+          <p className="text-[#4b3b2d] leading-relaxed text-base sm:text-lg md:text-xl">
+            اليوم، كل لعبة من ألعابنا صُممت بحب لتذكّرك إن السعادة أبسط مما نتصور —  
+            جلسة مع الناس اللي بتحبهم، وكلمة صادقة، وضحكة من القلب ❤️
+          </p>
+        </div>
+      </motion.div>
+
+      {/* 🎥 الفيديو داخل إطار موبايل كرتوني */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        whileHover={{ rotate: 2, scale: 1.03 }}
+        className="flex-1 flex justify-center"
+      >
+        <div className="relative w-[260px] sm:w-[300px] md:w-[360px] aspect-[9/16] bg-[#222] rounded-[3rem] p-3 shadow-2xl border-[8px] border-[#333]">
+          
+          {/* 🔹 الشاشة (الفيديو) */}
+          <div className="relative w-full h-full overflow-hidden rounded-[2rem] border-[4px] border-[#111]">
+            <video
+              src="/ad.mp4" // ضع مسار الفيديو داخل مجلد public
+              controls
+              playsInline
+              loop
+              muted
+              autoPlay
+              className="w-full h-full object-cover rounded-[1.8rem]"
+            />
+          </div>
+
+          {/* 🔹 تفاصيل كرتونية (سماعة + زر) */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-2 rounded-full bg-[#444]" />
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#444]" />
+        </div>
+      </motion.div>
+    </div>
+
+    {/* 🔹 الصف الثاني: اختبار الشخصية */}
     <div className="text-center">
-      <h2 className="text-3xl font-bold text-[#3d2c1e] mb-6">
+      <h2 className="text-2xl sm:text-3xl font-bold text-[#3d2c1e] mb-6">
         🎯 اكتشف أي لعبة تناسبك أكثر!
       </h2>
       <QuizSection />
     </div>
 
-    {/* 💖 قصة Spark of Positivity */}
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="text-center lg:text-right bg-[#fff5e9] rounded-3xl shadow-md border border-[#f1e4d3] p-8"
-    >
-      <h2 className="text-3xl sm:text-4xl font-bold text-[#3d2c1e] mb-8">
-        💫 قصة Spark of Positivity
-      </h2>
-      <p className="text-[#4b3b2d] leading-relaxed text-lg mb-4">
-        بدأت فكرة <span className="font-semibold text-[#080844]">Spark of Positivity</span> من جلسة عائلية بسيطة 
-        مليانة ضحك وفضفضة حقيقية. وقتها اكتشفنا إن اللحظات الصادقة هي اللي تخلق أقوى الروابط، 
-        وإن اللعب مش بس متعة… هو وسيلة للتقارب، للضحك، وللتعبير عن نفسنا بدون أحكام.
-      </p>
-<p className="text-[#4b3b2d] leading-relaxed text-lg mb-4">
-  من هون وُلدت الفكرة 💡: ليش ما نصمم ألعاب تخلّي كل جلسة 
-  مساحة دافئة للضحك، للمشاعر، وللتواصل الحقيقي؟ 
-  وكل كرت فيها يحمل &quot;شرارة&quot; صغيرة من الإيجابية.
-</p>
-
-      <p className="text-[#4b3b2d] leading-relaxed text-lg">
-        اليوم، كل لعبة من ألعابنا صُممت بحب لتذكّرك إن السعادة أبسط مما نتصور —
-        جلسة مع الناس اللي بتحبهم، وكلمة صادقة، وضحكة من القلب ❤️
-      </p>
-    </motion.div>
-
   </div>
 </section>
+
+
 
 
         {/* 🎴 الأقسام */}
@@ -369,7 +372,7 @@ export default function Page() {
         <section className="bg-[#fffaf3] py-12">
           <div className="max-w-5xl mx-auto px-6 text-center">
             <h3 className="text-2xl font-bold text-[#3d2c1e] mb-6">
-              بطاقات من لعبة سوالف بيتنا 🏠
+              بطاقات من لعبة سوالف بيتنا 
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-center">
               {["ser1.png", "ser2.png", "ser3.png", "ser4.png"].map((src, i) => (
@@ -439,25 +442,65 @@ export default function Page() {
         {/* 📩 الاشتراك */}
         <SubscribeSection />
 
-        {/* 🚀 CTA */}
-        <section id="cta" className="py-16 text-center bg-[#ffff] text-white">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            جاهز تبدأ المتعة؟ 
-          </h2>
-          <p className="max-w-2xl mx-auto text-gray-200 mb-8 leading-relaxed">
-            كل لحظة مع{" "}
-            <span className="font-semibold">Spark of Positivity</span>{" "}
-            هي لحظة ضحك وتواصل وسعادة. 
-          </p>
-          <a
-            href={SHOPIFY_CHECKOUT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-white text-[#080844] px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:scale-105 transition-all duration-300"
+        {/* 🚀 CTA مع معرض صور عصري */}
+<section
+  id="cta"
+  className="py-20 text-center bg-[#fffaf3] text-[#3d2c1e] relative overflow-hidden"
+>
+  <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+    جاهز تبدأ المتعة؟ 🎉
+  </h2>
+  <p className="max-w-2xl mx-auto text-[#4b3b2d] mb-12 leading-relaxed text-lg">
+    كل لحظة مع{" "}
+    <span className="font-semibold text-[#080844]">Spark of Positivity</span>{" "}
+    هي لحظة ضحك وتواصل وسعادة. استكشف أجواء ألعابنا من الصور التالية 💛
+  </p>
+
+  {/* 🖼️ شبكة الصور */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+    {[1, 2, 3, 4, 5,6].map((i) => (
+      <motion.div
+        key={i}
+        initial={{ opacity: 0, y: 40, scale: 0.9 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, delay: i * 0.15 }}
+        viewport={{ once: true }}
+        className="relative group overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-[#f1e4d3]"
+      >
+        <Image
+          src={`/${i}.png`}
+          alt={`صورة ${i}`}
+          width={600}
+          height={400}
+          className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700"
+        />
+
+        {/* طبقة شفافة أنيقة عند الهوفر */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-500 flex items-center justify-center">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileHover={{ opacity: 1, scale: 1 }}
+            className="text-white text-lg font-semibold bg-[#080844]/70 px-6 py-2 rounded-full shadow-md"
           >
-            اشترِ لعبتك الآن
-          </a>
-        </section>
+            ✨ Spark {i}
+          </motion.span>
+        </div>
+      </motion.div>
+    ))}
+  </div>
+
+  {/* 🚀 CTA Button */}
+  <motion.a
+    href={SHOPIFY_CHECKOUT_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block mt-16 bg-[#080844] text-white px-12 py-4 rounded-full text-lg font-semibold shadow-lg hover:scale-105 transition-all duration-300"
+    whileHover={{ scale: 1.05 }}
+  >
+    اشترِ لعبتك الآن
+  </motion.a>
+</section>
+
 
         {/* Footer */}
         <footer className="bg-[#fff5e9] text-xs sm:text-sm text-[#5c4a3a] text-center py-6 border-t border-[#e9dfd3] mt-12">
