@@ -31,10 +31,95 @@ export default function Page() {
 
   return (
     <>
-      {/* 💬 Chatbase Script */}
-      <Script id="chatbase-script" strategy="afterInteractive">
-        {`(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="vO4t_xmN-nOwkIJBhFii9";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();`}
-      </Script>
+    {/* 💬 Chatbase Script */}
+<Script id="chatbase-script" strategy="afterInteractive">
+  {`(function(){
+    if(!window.chatbase || window.chatbase("getState")!=="initialized"){
+      window.chatbase=(...arguments)=>{
+        if(!window.chatbase.q){window.chatbase.q=[]}
+        window.chatbase.q.push(arguments)
+      };
+      window.chatbase=new Proxy(window.chatbase,{
+        get(target,prop){
+          if(prop==="q"){return target.q}
+          return(...args)=>target(prop,...args)
+        }
+      })
+    }
+    const onLoad=function(){
+      const script=document.createElement("script");
+      script.src="https://www.chatbase.co/embed.min.js";
+      script.id="vO4t_xmN-nOwkIJBhFii9";
+      script.domain="www.chatbase.co";
+      document.body.appendChild(script)
+    };
+    if(document.readyState==="complete"){onLoad()}
+    else{window.addEventListener("load",onLoad)}
+  })();`}
+</Script>
+
+{/* 🌟 Chatbase Popup Script */}
+<Script id="chatbase-popup" strategy="afterInteractive">
+  {`
+    // إنشاء عنصر البوب-أب
+    const popup = document.createElement("div");
+    popup.id = "chatbase-popup";
+    popup.innerHTML = \`
+      <div class="popup-content">
+        <p>✨ هل ترغب بالتعرف علينا أكثر؟<br/>
+        شات بوتنا بالزاوية جاهز يحكي معك ويجاوب على أي استفسار 🤖</p>
+        <button id="close-popup">×</button>
+      </div>
+    \`;
+    document.body.appendChild(popup);
+
+    // إضافة الأنماط
+    const style = document.createElement("style");
+    style.innerHTML = \`
+      #chatbase-popup {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        background: #1A2E3B;
+        color: #fff;
+        border-radius: 16px;
+        padding: 16px 20px;
+        max-width: 280px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        font-family: 'Inter', sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+        display: none;
+        z-index: 9999;
+        animation: fadeIn 0.6s ease;
+      }
+      #chatbase-popup p { margin: 0; }
+      #chatbase-popup #close-popup {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+      }
+      @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+      }
+    \`;
+    document.head.appendChild(style);
+
+    // إظهار البوب-أب بعد 5 ثواني
+    setTimeout(() => {
+      popup.style.display = "block";
+      document.getElementById("close-popup").addEventListener("click", () => {
+        popup.style.display = "none";
+      });
+    }, 5000);
+  `}
+</Script>
 
       <div
         dir="rtl"
@@ -146,7 +231,7 @@ export default function Page() {
               transition={{ delay: 0.4, duration: 1 }}
               className="text-lg sm:text-xl max-w-2xl text-[#4b3b2d] leading-relaxed mb-8"
             >
-              ألعاب اجتماعية عائلية مصمّمة لتملأ يومك بالضحك، المشاعر، والطاقة الإيجابية.
+              ألعاب اجتماعية  مصمّمة لتملأ يومك بالضحك، المشاعر، والطاقة الإيجابية.
             </motion.p>
 
             <motion.a
@@ -187,6 +272,48 @@ export default function Page() {
             ))}
           </div>
         </section>
+  {/* 🧠 قسم اختبار الشخصية + 💖 قصة Spark of Positivity */}
+<section className="bg-[#fffaf3] py-20 px-6">
+  <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+    
+    {/* 🧠 قسم اختبار الشخصية */}
+    <div className="text-center">
+      <h2 className="text-3xl font-bold text-[#3d2c1e] mb-6">
+        🎯 اكتشف أي لعبة تناسبك أكثر!
+      </h2>
+      <QuizSection />
+    </div>
+
+    {/* 💖 قصة Spark of Positivity */}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="text-center lg:text-right bg-[#fff5e9] rounded-3xl shadow-md border border-[#f1e4d3] p-8"
+    >
+      <h2 className="text-3xl sm:text-4xl font-bold text-[#3d2c1e] mb-8">
+        💫 قصة Spark of Positivity
+      </h2>
+      <p className="text-[#4b3b2d] leading-relaxed text-lg mb-4">
+        بدأت فكرة <span className="font-semibold text-[#080844]">Spark of Positivity</span> من جلسة عائلية بسيطة 
+        مليانة ضحك وفضفضة حقيقية. وقتها اكتشفنا إن اللحظات الصادقة هي اللي تخلق أقوى الروابط، 
+        وإن اللعب مش بس متعة… هو وسيلة للتقارب، للضحك، وللتعبير عن نفسنا بدون أحكام.
+      </p>
+      <p className="text-[#4b3b2d] leading-relaxed text-lg mb-4">
+        من هون وُلدت الفكرة 💡: ليش ما نصمم ألعاب تخلّي كل جلسة 
+        مساحة دافئة للضحك، للمشاعر، وللتواصل الحقيقي؟ 
+        وكل كرت فيها يحمل "شرارة" صغيرة من الإيجابية.
+      </p>
+      <p className="text-[#4b3b2d] leading-relaxed text-lg">
+        اليوم، كل لعبة من ألعابنا صُممت بحب لتذكّرك إن السعادة أبسط مما نتصور —
+        جلسة مع الناس اللي بتحبهم، وكلمة صادقة، وضحكة من القلب ❤️
+      </p>
+    </motion.div>
+
+  </div>
+</section>
+
 
         {/* 🎴 الأقسام */}
         <GameSection
@@ -435,4 +562,109 @@ const SubscribeSection = () => (
       </button>
     </form>
   </section>
+  
 );
+
+/* 🔹 مكون اختبار الشخصية */
+const QuizSection = () => {
+  const [step, setStep] = React.useState(0);
+  const [answers, setAnswers] = React.useState<string[]>([]);
+  const [result, setResult] = React.useState<string | null>(null);
+
+  const questions = [
+    {
+      q: "كيف تفضل قضاء وقتك مع العائلة؟",
+      options: [
+        "جلسة دافئة وهادئة",
+        "ضحك ولعب وسوالف",
+        "خيال ومواقف مجنونة",
+      ],
+    },
+    {
+      q: "ما نوع الألعاب التي تستمتع بها أكثر؟",
+      options: [
+        "اللي تخليك تتكلم وتفكر",
+        "اللي فيها تحدي وضحك",
+        "اللي تفتح خيالك وتخليك تضحك من قلبك",
+      ],
+    },
+    {
+      q: "اختر الجملة الأقرب لك:",
+      options: [
+        "أحب أسمع مشاعر الناس 💬",
+        "أحب أضحك وأكتشف أسرار الكل 😂",
+        "أعيش اللحظة بخيالي 🪄",
+      ],
+    },
+  ];
+
+  const handleAnswer = (answer: string) => {
+    const newAnswers = [...answers, answer];
+    setAnswers(newAnswers);
+
+    if (step + 1 < questions.length) {
+      setStep(step + 1);
+    } else {
+      const samar = newAnswers.filter((a) => a.includes("دافئة") || a.includes("مشاعر")).length;
+      const sawalif = newAnswers.filter((a) => a.includes("ضحك") || a.includes("أسرار")).length;
+      const khayal = newAnswers.filter((a) => a.includes("خيال") || a.includes("لحظة")).length;
+
+      if (samar > sawalif && samar > khayal) setResult("🎴 سمر");
+else if (sawalif > samar && sawalif > khayal) setResult("🏠 سوالف بيتنا");
+      else setResult("💭 تخيّل لو");
+    }
+  };
+
+  const restart = () => {
+    setStep(0);
+    setAnswers([]);
+    setResult(null);
+  };
+
+  return (
+    <div className="max-w-xl mx-auto bg-[#fff5e9] p-8 rounded-3xl shadow-md border border-[#f1e4d3]">
+      {!result ? (
+        <>
+          <h3 className="text-xl font-semibold mb-6 text-[#080844]">
+            {questions[step].q}
+          </h3>
+          <div className="flex flex-col gap-4">
+            {questions[step].options.map((opt, i) => (
+              <motion.button
+                key={i}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => handleAnswer(opt)}
+                className="bg-white border border-[#e1d5c9] text-[#3d2c1e] py-3 px-4 rounded-full hover:bg-[#080844] hover:text-white transition-all duration-200"
+              >
+                {opt}
+              </motion.button>
+            ))}
+          </div>
+        </>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <h3 className="text-2xl font-bold text-[#080844] mb-4">
+            اللعبة المناسبة لك هي:
+          </h3>
+          <p className="text-3xl font-extrabold text-[#3d2c1e] mb-6">
+            {result}
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={restart}
+            className="bg-[#080844] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-all duration-200"
+          >
+            🔁 أعد الاختبار
+          </motion.button>
+        </motion.div>
+      )}
+    </div>
+  );
+};
