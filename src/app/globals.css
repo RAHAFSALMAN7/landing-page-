@@ -24,3 +24,33 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.hero-section {
+  background-image: url('/banar.jpg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-color: #fff5e9;
+  background-size: contain; /* على الموبايل - لا تقص الصورة */
+}
+
+@media (min-width: 640px) {
+  .hero-section {
+    background-size: cover; /* على الشاشات الكبيرة */
+    background-position: center;
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradientMove 8s ease-in-out infinite;
+}

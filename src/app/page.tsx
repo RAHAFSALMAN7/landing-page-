@@ -153,63 +153,62 @@ export default function Page() {
           </div>
         </nav>
 
-     {/* 🌟 Hero Section متوسط الارتفاع */}
-<section className="relative flex flex-col items-center justify-center text-center h-[65vh] sm:h-[70vh] px-6 overflow-hidden bg-[#fff5e9]">
-  {/* 🖼️ خلفية الصورة */}
-  <div className="absolute inset-0 w-full h-full z-0">
+  {/* 🌟 Hero Section متجاوب مع خلفية متحركة على الموبايل */}
+<section className="relative flex flex-col items-center justify-center text-center min-h-[75vh] sm:min-h-[85vh] px-6 overflow-hidden bg-[#fff5e9]">
+
+  {/* 🖼️ خلفية الصورة - تظهر فقط على الشاشات الكبيرة */}
+  <div className="hidden sm:block absolute inset-0 w-full h-full z-0">
     <Image
       src="/banar.jpg"
       alt="Spark of Positivity Hero Image"
       fill
       priority
       quality={95}
-      className="object-cover"
+      className="object-cover object-[center_30%] transition-all duration-500"
     />
   </div>
 
-  {/* ✨ لمعة خفيفة */}
-  <motion.div
-    className="absolute inset-0 bg-gradient-to-r from-transparent via-[#f9e7d3]/30 to-transparent mix-blend-overlay"
-    animate={{
-      backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"],
-    }}
-    transition={{
-      duration: 10,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-    style={{ backgroundSize: "200% 100%" }}
-  />
+  {/* ✨ خلفية متحركة - تظهر فقط على الموبايل */}
+  <div className="absolute inset-0 block sm:hidden z-0 animate-gradient bg-gradient-to-r from-[#f6d365] via-[#fda085] to-[#f6d365] bg-[length:200%_200%]" />
+
+  {/* 🕶️ تظليل خفيف لجعل النص واضح */}
+  <div className="absolute inset-0 bg-black/30 sm:bg-black/25 z-[1]" />
 
   {/* ⚡ المحتوى */}
-  <div className="relative z-10 flex flex-col items-center justify-center text-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)]">
-    <motion.h1
+  <div className="relative z-10 flex flex-col items-center justify-center text-white px-4 max-w-3xl">
+
+    {/* النص - يظهر فقط على الشاشات الصغيرة */}
+    <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
-      className="text-4xl sm:text-6xl font-extrabold mb-6 leading-tight"
+      className="block sm:hidden text-center"
     >
-     </motion.h1>
+      <h1 className="text-3xl font-extrabold mb-4 leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.6)]">
+        اشعل شرارة الإيجابية في كل لحظة ✨
+      </h1>
 
-    <motion.p
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.4, duration: 1 }}
-      className="text-lg sm:text-xl max-w-2xl mb-8 font-medium text-white"
-    >
-     </motion.p>
+      <p className="text-base font-medium text-white/90 leading-relaxed drop-shadow-[0_2px_5px_rgba(0,0,0,0.4)]">
+        ألعاب تفتح القلوب وتخلق لحظات ضحك وتأمل لا تُنسى مع العائلة والأصدقاء.
+      </p>
+    </motion.div>
 
+    {/* زر الشراء - يظهر على جميع الأجهزة */}
     <motion.a
       href={SHOPIFY_CHECKOUT_URL}
       target="_blank"
       rel="noopener noreferrer"
-className="bg-[#fffaf3] text-[#080844] px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
+      className="bg-[#fffaf3] text-[#080844] px-8 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 mt-6"
       whileHover={{ scale: 1.05 }}
     >
       اشترِ الآن وابدأ المغامرة
     </motion.a>
   </div>
 </section>
+
+
+
+
 
 
 
