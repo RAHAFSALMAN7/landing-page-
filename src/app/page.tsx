@@ -168,8 +168,20 @@ export default function Page() {
     />
   </div>
 
-  {/* ✨ خلفية متحركة - تظهر فقط على الموبايل */}
-  <div className="absolute inset-0 block sm:hidden z-0 animate-gradient bg-gradient-to-r from-[#f6d365] via-[#fda085] to-[#f6d365] bg-[length:200%_200%]" />
+  {/* 🖼️ خلفية الصورة - تظهر فقط على الموبايل */}
+  <div className="absolute inset-0 block sm:hidden z-0">
+    <Image
+      src="/Untitled-2.png"
+      alt="Spark of Positivity Mobile Hero"
+      fill
+      priority
+      quality={95}
+      className="object-cover object-center"
+    />
+  </div>
+
+  {/* ✨ خلفية متحركة إضافية فوق الصورة (اختياري) */}
+  <div className="absolute inset-0 block sm:hidden z-0 animate-gradient bg-gradient-to-r from-[#f6d365]/10 via-[#fda085]/10 to-[#f6d365]/10 bg-[length:200%_200%]" />
 
   {/* 🕶️ تظليل خفيف لجعل النص واضح */}
   <div className="absolute inset-0 bg-black/30 sm:bg-black/25 z-[1]" />
@@ -185,12 +197,10 @@ export default function Page() {
       className="block sm:hidden text-center"
     >
       <h1 className="text-3xl font-extrabold mb-4 leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.6)]">
-        اشعل شرارة الإيجابية في كل لحظة ✨
-      </h1>
+       </h1>
 
       <p className="text-base font-medium text-white/90 leading-relaxed drop-shadow-[0_2px_5px_rgba(0,0,0,0.4)]">
-        ألعاب تفتح القلوب وتخلق لحظات ضحك وتأمل لا تُنسى مع العائلة والأصدقاء.
-      </p>
+       </p>
     </motion.div>
 
     {/* زر الشراء - يظهر على جميع الأجهزة */}
@@ -206,39 +216,6 @@ export default function Page() {
   </div>
 </section>
 
-
-
-
-
-
-
-
-        {/* ⚡ المميزات */}
-        <section className="py-16 bg-[#fefaf6] text-center">
-          <h2 className="text-3xl font-bold mb-12 text-[#3d2c1e]">
-            لماذا تختار Spark of Positivity؟
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto px-4">
-            {[
-              { icon: "", title: "تواصل حقيقي", text: "تقرّب الناس وتفتح قلوبهم بطريقة مرحة ومريحة." },
-              { icon: "", title: "لكل العائلة", text: "للكبار والصغار، للجلسات اليومية أو المناسبات." },
-              { icon: "", title: "طاقة إيجابية", text: "تجارب تخلّيك تضحك وتفكر وتعيش لحظة صادقة." },
-            ].map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="p-6 bg-[#fff5e9] rounded-2xl shadow-md hover:shadow-lg transition-all border border-[#f1e4d3]"
-              >
-                <span className="text-4xl">{feature.icon}</span>
-                <h3 className="text-xl font-semibold mt-4 mb-2 text-[#3d2c1e]">{feature.title}</h3>
-                <p className="text-[#5c4a3a] text-sm leading-relaxed">{feature.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
   {/* 💖 القصة + الفيديو + الكويز */}
 <section className="bg-[#fffaf3] py-20 px-6">
   <div className="max-w-6xl mx-auto flex flex-col gap-20">
@@ -266,7 +243,7 @@ export default function Page() {
           </p>
 
           <p className="text-[#4b3b2d] leading-relaxed text-base sm:text-lg md:text-xl">
-            من هون وُلدت الفكرة 💡: ليش ما نصمم ألعاب تخلّي كل جلسة 
+            من هون وُلدت الفكرة 💡: ليش ما نصمم ألعاب تخلّي كل جلسة
             مساحة دافئة للضحك، للمشاعر، وللتواصل الحقيقي؟
             وكل كرت فيها يحمل "شرارة" صغيرة من الإيجابية.
           </p>
