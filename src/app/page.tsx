@@ -479,6 +479,78 @@ export default function Page() {
     اشترِ لعبتك الآن
   </motion.a>
 </section>
+{/* 🌍 قسم الألعاب بالإنجليزية */}
+<section
+  id="english-versions"
+  className="bg-[#fffaf3] py-20 text-center border-t border-[#f1e4d3]"
+>
+  <h2 className="text-3xl sm:text-4xl font-bold text-[#080844] mb-6">
+    🌍 English Versions Available
+  </h2>
+  <p className="text-[#4b3b2d] mb-12 max-w-2xl mx-auto text-lg leading-relaxed">
+    Prefer to play in English? Discover our English versions of the games —
+    same fun, same laughter, now in a new language!
+  </p>
+
+  {/* 🛍️ بطاقات الألعاب الإنجليزية */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
+  {[
+    {
+      title: "✨ Samar",
+      desc: "A cozy and heartwarming game that opens honest conversations and brings people closer.",
+      img: "/samar-card.jpg",
+      link: "https://cardarena.net/#ea0a55f5689f615f17470d2961f8ec54",
+    },
+    {
+      title: "🏠 Family Talks",
+      desc: "The fun family game full of laughter and stories — discover how well you know each other!",
+      img: "/main.png",
+      link: "https://cardarena.net/products/family-talks-english-edition", // ✅ تم التحديث هنا
+    },
+    {
+      title: "💭 Imagine If",
+      desc: "A hilarious game full of crazy 'what if' situations — unleash your creativity and laugh together!",
+      img: "/khayal.jpg",
+      link: "https://cardarena.net/#ea0a55f5689f615f17470d2961f8ec54",
+    },
+  ].map((game, i) => (
+    <motion.div
+      key={i}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: i * 0.2 }}
+      viewport={{ once: true }}
+      className="bg-white border border-[#e1d5c9] rounded-3xl shadow-md hover:shadow-xl transition-transform hover:scale-105 overflow-hidden flex flex-col"
+    >
+      <Image
+        src={game.img}
+        alt={game.title}
+        width={400}
+        height={300}
+        className="object-cover w-full h-64"
+      />
+      <div className="p-6 flex flex-col flex-grow text-left">
+        <h3 className="text-2xl font-bold text-[#080844] mb-2">
+          {game.title}
+        </h3>
+        <p className="text-[#4b3b2d] flex-grow mb-6 leading-relaxed">
+          {game.desc}
+        </p>
+        <motion.a
+          href={game.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ scale: 1.05 }}
+          className="inline-block bg-[#080844] text-white text-center px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+        >
+          🛒 Buy Now
+        </motion.a>
+      </div>
+    </motion.div>
+  ))}
+</div>
+</section>
+
 
 
         {/* Footer */}
