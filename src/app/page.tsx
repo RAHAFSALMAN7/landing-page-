@@ -1,767 +1,826 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 "use client";
-import React from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import Script from "next/script"; // ✅ لإضافة الشات سكربت بشكل آمن
 
-const SHOPIFY_CHECKOUT_URL =
-  "https://cardarena.net/#ea0a55f5689f615f17470d2961f8ec54";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ShoppingCart,
+  Send,
+  MessageCircle,
+  X,
+  Star,
+  Truck,
+  ShieldCheck,
+  CreditCard,
+  Gift,
+} from "lucide-react";
+// 🖼️ مكون معرض الصور بسلايدر يدوي
+function GallerySlider() {
+const images = [
+  "/images/gallery-1.jpg",
+  "/images/gallery-2.jpg",
+  "/images/gallery-3.jpg",
+  "/images/gallery-4.jpg",
+  "/images/gallery-5.jpg",
+  "/images/gallery-6.jpg",
+  "/images/gallery-7.jpg",
+  "/images/gallery-8.jpg",
+  "/images/gallery-9.jpg",
+  "/images/gallery-10.jpg",
+];
 
-export default function Page() {
-  // ✅ توليد الزخارف بعد تحميل الصفحة فقط (لتجنب hydration error)
-  const [decorations, setDecorations] = React.useState<any[]>([]);
 
-  React.useEffect(() => {
-    const points = Array.from({ length: 15 }).map((_, i) => ({
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      width: `${Math.random() * 10 + 5}px`,
-      height: `${Math.random() * 10 + 6}px`,
-      color:
-        i % 3 === 0 ? "#e6d2b5" : i % 3 === 1 ? "#f3e8d9" : "#d4b893",
-      delay: Math.random() * 3,
-      duration: Math.random() * 4 + 4,
-      scale: Math.random() * 0.8 + 0.4,
-      yStart: Math.random() * 200,
-      xStart: Math.random() * 1000 - 500,
-    }));
-    setDecorations(points);
-  }, []);
+
+  const [index, setIndex] = useState(0);
+
+  const next = () => setIndex((prev) => (prev + 1) % images.length);
+  const prev = () => setIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <>
-    {/* 💬 Chatbase Script */}
-<Script id="chatbase-script" strategy="afterInteractive">
-  {`(function(){
-    if(!window.chatbase || window.chatbase("getState")!=="initialized"){
-      window.chatbase=(...arguments)=>{
-        if(!window.chatbase.q){window.chatbase.q=[]}
-        window.chatbase.q.push(arguments)
-      };
-      window.chatbase=new Proxy(window.chatbase,{
-        get(target,prop){
-          if(prop==="q"){return target.q}
-          return(...args)=>target(prop,...args)
-        }
-      })
-    }
-    const onLoad=function(){
-      const script=document.createElement("script");
-      script.src="https://www.chatbase.co/embed.min.js";
-      script.id="vO4t_xmN-nOwkIJBhFii9";
-      script.domain="www.chatbase.co";
-      document.body.appendChild(script)
-    };
-    if(document.readyState==="complete"){onLoad()}
-    else{window.addEventListener("load",onLoad)}
-  })();`}
-</Script>
+    <div className="relative w-full max-w-4xl mx-auto">
+      {/* الصورة */}
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -100 }}
+        transition={{ duration: 0.6 }}
+        className="rounded-3xl overflow-hidden shadow-2xl border border-[#C2A679]/40 bg-[#2F3A33]"
+      >
+        <img
+          src={images[index]}
+          alt={`Furniture ${index + 1}`}
+          className="w-full h-[480px] object-cover rounded-3xl"
+        />
+      </motion.div>
 
-{/* 🌟 Chatbase Popup Script */}
-<Script id="chatbase-popup" strategy="afterInteractive">
-  {`
-    // إنشاء عنصر البوب-أب
-    const popup = document.createElement("div");
-    popup.id = "chatbase-popup";
-    popup.innerHTML = \`
-      <div class="popup-content">
- 
-<p>هل ترغب بالتعرف علينا أكثر؟ &quot;شات بوتنا&quot; جاهز لمساعدتك</p>
-        شات بوتنا بالزاوية جاهز يحكي معك ويجاوب على أي استفسار 🤖</p>
- 
-        <button id="close-popup">×</button>
+      {/* أزرار التنقل */}
+      <button
+        onClick={prev}
+        className="absolute top-1/2 -translate-y-1/2 left-4 bg-[#E9E2D0]/80 hover:bg-[#E9E2D0] text-[#1C1C1A] p-3 rounded-full shadow-md transition"
+      >
+        ◀
+      </button>
+
+      <button
+        onClick={next}
+        className="absolute top-1/2 -translate-y-1/2 right-4 bg-[#E9E2D0]/80 hover:bg-[#E9E2D0] text-[#1C1C1A] p-3 rounded-full shadow-md transition"
+      >
+        ▶
+      </button>
+
+      {/* المؤشرات (النقاط) */}
+      <div className="flex justify-center mt-6 gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`w-3 h-3 rounded-full transition ${
+              i === index ? "bg-[#C2A679]" : "bg-[#E9E2D0]/40"
+            }`}
+          />
+        ))}
       </div>
-    \`;
-    document.body.appendChild(popup);
-
-    // إضافة الأنماط
-    const style = document.createElement("style");
-    style.innerHTML = \`
-      #chatbase-popup {
-        position: fixed;
-        bottom: 100px;
-        right: 20px;
-        background: #1A2E3B;
-        color: #fff;
-        border-radius: 16px;
-        padding: 16px 20px;
-        max-width: 280px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        font-family: 'Inter', sans-serif;
-        font-size: 15px;
-        line-height: 1.5;
-        display: none;
-        z-index: 9999;
-        animation: fadeIn 0.6s ease;
-      }
-      #chatbase-popup p { margin: 0; }
-      #chatbase-popup #close-popup {
-        position: absolute;
-        top: 4px;
-        right: 8px;
-        background: none;
-        border: none;
-        color: #fff;
-        font-size: 18px;
-        cursor: pointer;
-      }
-      @keyframes fadeIn {
-        from {opacity: 0; transform: translateY(20px);}
-        to {opacity: 1; transform: translateY(0);}
-      }
-    \`;
-    document.head.appendChild(style);
-
-    // إظهار البوب-أب بعد 5 ثواني
-    setTimeout(() => {
-      popup.style.display = "block";
-      document.getElementById("close-popup").addEventListener("click", () => {
-        popup.style.display = "none";
-      });
-    }, 5000);
-  `}
-</Script>
-
-      <div
-        dir="rtl"
-        className="bg-gradient-to-b from-[#fefaf6] to-[#f9f3ec] text-gray-900 scroll-smooth"
-      >
-        {/* 🧭 Navbar */}
-        <nav className="fixed top-0 left-0 right-0 bg-[#fff5e9]/80 backdrop-blur-md shadow-sm z-50 py-3 border-b border-[#e9dfd3]">
-          <div className="max-w-6xl mx-auto flex items-center justify-between px-6">
-            <h1 className="font-extrabold text-xl text-[#5b4031]">
-              Spark of Positivity ✨ - ومضات ايجابية
-            </h1>
-            <div className="flex gap-6 text-sm sm:text-base font-semibold text-[#5b4031]/80">
-              <a href="#samar" className="hover:text-[#080844] transition-colors">
-                سمر
-              </a>
-              <a href="#sawalif" className="hover:text-[#080844] transition-colors">
-                سوالف بيتنا
-              </a>
-              <a href="#khayal" className="hover:text-[#080844] transition-colors">
-                تخيل لو
-              </a>
-              <a href="#cta" className="hover:text-[#080844] transition-colors">
-                اشترِ الآن
-              </a>
-            </div>
-          </div>
-        </nav>
-
-  {/* 🌟 Hero Section متجاوب مع خلفية متحركة على الموبايل */}
-<section className="relative flex flex-col items-center justify-center text-center min-h-[75vh] sm:min-h-[85vh] px-6 overflow-hidden bg-[#fff5e9]">
-
-  {/* 🖼️ خلفية الصورة - تظهر فقط على الشاشات الكبيرة */}
-  <div className="hidden sm:block absolute inset-0 w-full h-full z-0">
-    <Image
-      src="/banar.jpg"
-      alt="Spark of Positivity Hero Image"
-      fill
-      priority
-      quality={95}
-      className="object-cover object-[center_30%] transition-all duration-500"
-    />
-  </div>
-
-  {/* 🖼️ خلفية الصورة - تظهر فقط على الموبايل */}
-  <div className="absolute inset-0 block sm:hidden z-0">
-    <Image
-      src="/Untitled-2.png"
-      alt="Spark of Positivity Mobile Hero"
-      fill
-      priority
-      quality={95}
-      className="object-cover object-center"
-    />
-  </div>
-
-  {/* ✨ خلفية متحركة إضافية فوق الصورة (اختياري) */}
-  <div className="absolute inset-0 block sm:hidden z-0 animate-gradient bg-gradient-to-r from-[#f6d365]/10 via-[#fda085]/10 to-[#f6d365]/10 bg-[length:200%_200%]" />
-
-  {/* 🕶️ تظليل خفيف لجعل النص واضح */}
-  <div className="absolute inset-0 bg-black/30 sm:bg-black/25 z-[1]" />
-
-  {/* ⚡ المحتوى */}
-  <div className="relative z-10 flex flex-col items-center justify-center text-white px-4 max-w-3xl">
-
-    {/* النص - يظهر فقط على الشاشات الصغيرة */}
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-      className="block sm:hidden text-center"
-    >
-      <h1 className="text-3xl font-extrabold mb-4 leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.6)]">
-       </h1>
-
-      <p className="text-base font-medium text-white/90 leading-relaxed drop-shadow-[0_2px_5px_rgba(0,0,0,0.4)]">
-       </p>
-    </motion.div>
-
-    {/* زر الشراء - يظهر على جميع الأجهزة */}
-    <motion.a
-      href={SHOPIFY_CHECKOUT_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bg-[#fffaf3] text-[#080844] px-8 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 mt-6"
-      whileHover={{ scale: 1.05 }}
-    >
-      اشترِ الآن وابدأ المغامرة
-    </motion.a>
-  </div>
-</section>
-
-  {/* 💖 القصة + الفيديو + الكويز */}
-<section className="bg-[#fffaf3] py-20 px-6">
-  <div className="max-w-6xl mx-auto flex flex-col gap-20">
-
-    {/* 🔹 الصف الأول: القصة + الفيديو */}
-    <div className="flex flex-col lg:flex-row items-start justify-between gap-12">
-      
-      {/* 💫 قصة Spark of Positivity */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="flex-1 flex flex-col justify-between text-center lg:text-right bg-[#fff5e9] rounded-3xl shadow-md border border-[#f1e4d3] p-6 sm:p-8 min-h-[550px] sm:min-h-[610px] md:min-h-[650px]"
-      >
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3d2c1e] mb-6 sm:mb-8">
-          💫 قصة Spark of Positivity
-        </h2>
-
-        <div className="flex flex-col gap-4 justify-center flex-grow">
-          <p className="text-[#4b3b2d] leading-relaxed text-base sm:text-lg md:text-xl">
-            بدأت فكرة <span className="font-semibold text-[#080844]">Spark of Positivity</span> من جلسة عائلية بسيطة
-            مليانة ضحك وفضفضة حقيقية. وقتها اكتشفنا إن اللحظات الصادقة هي اللي تخلق أقوى الروابط،
-            وإن اللعب مش بس متعة… هو وسيلة للتقارب، للضحك، وللتعبير عن نفسنا بدون أحكام.
-          </p>
-
-          <p className="text-[#4b3b2d] leading-relaxed text-base sm:text-lg md:text-xl">
-            من هون وُلدت الفكرة 💡: ليش ما نصمم ألعاب تخلّي كل جلسة
-            مساحة دافئة للضحك، للمشاعر، وللتواصل الحقيقي؟
-            وكل كرت فيها يحمل "شرارة" صغيرة من الإيجابية.
-          </p>
-
-          <p className="text-[#4b3b2d] leading-relaxed text-base sm:text-lg md:text-xl">
-            اليوم، كل لعبة من ألعابنا صُممت بحب لتذكّرك إن السعادة أبسط مما نتصور —  
-            جلسة مع الناس اللي بتحبهم، وكلمة صادقة، وضحكة من القلب ❤️
-          </p>
-        </div>
-      </motion.div>
-
-      {/* 🎥 الفيديو داخل إطار موبايل كرتوني */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        whileHover={{ rotate: 2, scale: 1.03 }}
-        className="flex-1 flex justify-center"
-      >
-        <div className="relative w-[260px] sm:w-[300px] md:w-[360px] aspect-[9/16] bg-[#222] rounded-[3rem] p-3 shadow-2xl border-[8px] border-[#333]">
-          
-          {/* 🔹 الشاشة (الفيديو) */}
-          <div className="relative w-full h-full overflow-hidden rounded-[2rem] border-[4px] border-[#111]">
-            <video
-              src="/ad.mp4" // ضع مسار الفيديو داخل مجلد public
-              controls
-              playsInline
-              loop
-              muted
-              autoPlay
-              className="w-full h-full object-cover rounded-[1.8rem]"
-            />
-          </div>
-
-          {/* 🔹 تفاصيل كرتونية (سماعة + زر) */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-2 rounded-full bg-[#444]" />
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#444]" />
-        </div>
-      </motion.div>
     </div>
-
-    {/* 🔹 الصف الثاني: اختبار الشخصية */}
-    <div className="text-center">
-      <h2 className="text-2xl sm:text-3xl font-bold text-[#3d2c1e] mb-6">
-        🎯 اكتشف أي لعبة تناسبك أكثر!
-      </h2>
-      <QuizSection />
-    </div>
-
-  </div>
-</section>
-
-
-
-
-        {/* 🎴 الأقسام */}
-        <GameSection
-          id="samar"
-          title=" سمر"
-          img="/samar-card.jpg"
-          bullets={[" تحدث بصراحة", " شارك مشاعرك", " اكتشف من حولك"]}
-          text="لعبة دافئة وهادئة تشجعك على الفضفضة والتقارب. كل جلسة تفتح مواضيع جديدة وتقرّب الناس أكثر."
-          demo="https://samardemo2.netlify.app/"
-        />
-{/* 🖼️ معرض صور لعبة سمر */}
-        <section className="bg-[#fffaf3] py-12">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <h3 className="text-2xl font-bold text-[#3d2c1e] mb-6">
-              بطاقات من لعبة سمر 🌸
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-center">
-              {["card1.png", "card3.png", "card5.png", "card6.png"].map((src, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: i * 0.2 }}
-                  viewport={{ once: true }}
-                  className="overflow-hidden rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-                >
-                  <Image
-                    src={`/${src}`}
-                    alt={`سمر ${i + 1}`}
-                    width={300}
-                    height={400}
-                    className="object-cover w-full h-full"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <GameSection
-          id="sawalif"
-          title=" سوالف بيتنا"
-          img="/main.png"
-          reverse
-          bullets={[" أسرار العيلة", " ضحك بلا حدود", " من يعرفك أكثر؟"]}
-          text="اللعبة العائلية اللي تختبر معرفتكم ببعض بطريقة ممتعة مليانة ضحك وذكريات لا تُنسى."
-          demo="https://demosawalf.netlify.app/"
-        />
- {/* 🖼️ معرض صور سوالف بيتنا */}
-        <section className="bg-[#fffaf3] py-12">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <h3 className="text-2xl font-bold text-[#3d2c1e] mb-6">
-              بطاقات من لعبة سوالف بيتنا 
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-center">
-              {["ser1.png", "ser2.png", "ser3.png", "ser4.png"].map((src, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: i * 0.2 }}
-                  viewport={{ once: true }}
-                  className="overflow-hidden rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-                >
-                  <Image
-                    src={`/${src}`}
-                    alt={`سوالف بيتنا ${i + 1}`}
-                    width={300}
-                    height={400}
-                    className="object-cover w-full h-full"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 🖼️ تخيّل لو مع الصور الجديدة */}
-        <GameSection
-          id="khayal"
-          title=" تخيّل لو"
-          img="/khayal.jpg"
-          bullets={[" مواقف مجنونة", " ضحك خيالي", " خيالك هو البطل!"]}
-          text="انطلق بخيالك! كل كرت سيناريو مجنون يجعلك تضحك وتفكر بطرق جديدة، مثالية للجلسات الحيوية."
-          demo="https://demokhayalk.netlify.app/"
-        />
-
-        {/* 🖼️ معرض صور مصغّرة لكروت تخيّل لو */}
-        <section className="bg-[#fefaf6] py-12">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <h3 className="text-2xl font-bold text-[#3d2c1e] mb-6">
-              بطاقات من لعبة تخيّل لو 💭
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-center">
-              {["01.jpg", "02.jpg", "03.jpg", "04.jpg"].map((src, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: i * 0.2 }}
-                  viewport={{ once: true }}
-                  className="overflow-hidden rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300"
-                >
-                  <Image
-                    src={`/${src}`}
-                    alt={`تخيل لو ${i + 1}`}
-                    width={300}
-                    height={400}
-                    className="object-cover w-full h-full"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 💬 آراء العملاء */}
-        <Testimonials />
-
-        {/* 📩 الاشتراك */}
-        <SubscribeSection />
-
-        {/* 🚀 CTA مع معرض صور عصري */}
-<section
-  id="cta"
-  className="py-20 text-center bg-[#fffaf3] text-[#3d2c1e] relative overflow-hidden"
->
-  <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-    جاهز تبدأ المتعة؟ 🎉
-  </h2>
-  <p className="max-w-2xl mx-auto text-[#4b3b2d] mb-12 leading-relaxed text-lg">
-    كل لحظة مع{" "}
-    <span className="font-semibold text-[#080844]">Spark of Positivity</span>{" "}
-    هي لحظة ضحك وتواصل وسعادة. استكشف أجواء ألعابنا من الصور التالية 💛
-  </p>
-
-  {/* 🖼️ شبكة الصور */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
-    {[1, 2, 3, 4, 5,6].map((i) => (
-      <motion.div
-        key={i}
-        initial={{ opacity: 0, y: 40, scale: 0.9 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.8, delay: i * 0.15 }}
-        viewport={{ once: true }}
-        className="relative group overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl border border-[#f1e4d3]"
-      >
-        <Image
-          src={`/${i}.png`}
-          alt={`صورة ${i}`}
-          width={600}
-          height={400}
-          className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700"
-        />
-
-        {/* طبقة شفافة أنيقة عند الهوفر */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-500 flex items-center justify-center">
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileHover={{ opacity: 1, scale: 1 }}
-            className="text-white text-lg font-semibold bg-[#080844]/70 px-6 py-2 rounded-full shadow-md"
-          >
-            ✨ Spark {i}
-          </motion.span>
-        </div>
-      </motion.div>
-    ))}
-  </div>
-
-  {/* 🚀 CTA Button */}
-  <motion.a
-    href={SHOPIFY_CHECKOUT_URL}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block mt-16 bg-[#080844] text-white px-12 py-4 rounded-full text-lg font-semibold shadow-lg hover:scale-105 transition-all duration-300"
-    whileHover={{ scale: 1.05 }}
-  >
-    اشترِ لعبتك الآن
-  </motion.a>
-</section>
-{/* 🌍 قسم الألعاب بالإنجليزية */}
-<section
-  id="english-versions"
-  className="bg-[#fffaf3] py-20 text-center border-t border-[#f1e4d3]"
->
-  <h2 className="text-3xl sm:text-4xl font-bold text-[#080844] mb-6">
-    🌍 English Versions Available
-  </h2>
-  <p className="text-[#4b3b2d] mb-12 max-w-2xl mx-auto text-lg leading-relaxed">
-    Prefer to play in English? Discover our English versions of the games —
-    same fun, same laughter, now in a new language!
-  </p>
-
-  {/* 🛍️ بطاقات الألعاب الإنجليزية */}
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
-  {[
-    {
-      title: "✨ Samar",
-      desc: "A cozy and heartwarming game that opens honest conversations and brings people closer.",
-      img: "/samar-card.jpg",
-      link: "https://cardarena.net/#ea0a55f5689f615f17470d2961f8ec54",
-    },
-    {
-      title: "🏠 Family Talks",
-      desc: "The fun family game full of laughter and stories — discover how well you know each other!",
-      img: "/main.png",
-      link: "https://cardarena.net/products/family-talks-english-edition", // ✅ تم التحديث هنا
-    },
-    {
-      title: "💭 Imagine If",
-      desc: "A hilarious game full of crazy 'what if' situations — unleash your creativity and laugh together!",
-      img: "/khayal.jpg",
-      link: "https://cardarena.net/#ea0a55f5689f615f17470d2961f8ec54",
-    },
-  ].map((game, i) => (
-    <motion.div
-      key={i}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: i * 0.2 }}
-      viewport={{ once: true }}
-      className="bg-white border border-[#e1d5c9] rounded-3xl shadow-md hover:shadow-xl transition-transform hover:scale-105 overflow-hidden flex flex-col"
-    >
-      <Image
-        src={game.img}
-        alt={game.title}
-        width={400}
-        height={300}
-        className="object-cover w-full h-64"
-      />
-      <div className="p-6 flex flex-col flex-grow text-left">
-        <h3 className="text-2xl font-bold text-[#080844] mb-2">
-          {game.title}
-        </h3>
-        <p className="text-[#4b3b2d] flex-grow mb-6 leading-relaxed">
-          {game.desc}
-        </p>
-        <motion.a
-          href={game.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.05 }}
-          className="inline-block bg-[#080844] text-white text-center px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
-        >
-          🛒 Buy Now
-        </motion.a>
-      </div>
-    </motion.div>
-  ))}
-</div>
-</section>
-
-
-
-        {/* Footer */}
-        <footer className="bg-[#fff5e9] text-xs sm:text-sm text-[#5c4a3a] text-center py-6 border-t border-[#e9dfd3] mt-12">
-          © 2025 جميع الحقوق محفوظة لدى{" "}
-          <span className="font-semibold text-[#080844]">
-            Spark of Positivity
-          </span>
-        </footer>
-      </div>
-    </>
   );
 }
 
-/* 🔹 قسم لعبة */
-const GameSection = ({ id, title, img, text, bullets, demo, reverse = false }: any) => (
-  <motion.section
-    id={id}
-    className={`py-20 flex flex-col ${
-      reverse ? "lg:flex-row-reverse" : "lg:flex-row"
-    } items-center justify-center gap-10 max-w-6xl mx-auto px-6 bg-[#fefaf6]`}
-    initial={{ opacity: 0, y: 80 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-    viewport={{ once: true }}
-  >
-    <Image
-      src={img}
-      alt={title}
-      width={400}
-      height={500}
-      className="rounded-3xl shadow-xl object-contain"
-    />
-    <div className="text-center lg:text-right max-w-lg">
-      <h2 className="text-3xl font-bold text-[#080844] mb-4">{title}</h2>
-      <p className="text-[#4b3b2d] leading-relaxed mb-4">{text}</p>
-      <ul className="mt-6 space-y-2 text-[#5c4a3a] text-right list-disc list-inside">
-        {bullets.map((b: string, i: number) => (
-          <li key={i}>{b}</li>
-        ))}
-      </ul>
-      <a
-        href={demo}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-8 inline-block bg-[#080844] text-white px-10 py-3 rounded-full text-base font-semibold shadow-lg hover:scale-105 transition"
-      >
-        🎮 جرّب الديمو
-      </a>
-    </div>
-  </motion.section>
-);
+// 🔢 عدّاد متحرك
+function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let start = 0;
+    const end = target;
+    const increment = Math.ceil(end / (duration / 16));
+    const animate = () => {
+      start += increment;
+      if (start > end) start = end;
+      setCount(start);
+      if (start < end) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [target, duration]);
+  return <span>{count.toLocaleString()}</span>;
+}
 
-/* 🔹 آراء العملاء */
-const Testimonials = () => (
-  <section className="bg-[#f9f3ec] py-20 text-center">
-    <h2 className="text-3xl font-bold mb-12 text-[#3d2c1e]">
-      آراء من جرّبوا ألعابنا 💬
-    </h2>
-    <div className="flex flex-wrap justify-center gap-8 max-w-5xl mx-auto">
-      {[
-        { name: "أحمد", text: "لعبة سوالف بيتنا كانت أحلى جلسة عائلية " },
-        { name: "رهف", text: "تخيل لو؟ ضحكنا لدرجة الدموع " },
-        { name: "ليان", text: "سمر خلتنا نتكلم بصراحة ومريحة جدًا " },
-      ].map((t, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="bg-[#fff5e9] border border-[#f1e4d3] shadow-md rounded-2xl p-6 max-w-sm"
+// 🎁 مكون عرض الأسبوع
+function PromoWidget() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const dismissedUntil = localStorage.getItem("promoDismissedUntil");
+    const now = Date.now();
+    if (dismissedUntil && now < Number(dismissedUntil)) return;
+    const timer = setTimeout(() => setVisible(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  function dismiss() {
+    const oneDay = 24 * 60 * 60 * 1000;
+    localStorage.setItem("promoDismissedUntil", String(Date.now() + oneDay));
+    setVisible(false);
+  }
+
+  function goToProducts() {
+    const el = document.querySelector("#products");
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // ⬇️ هون بالضبط بدك تبدّل الكود القديم بهذا الجديد:
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.aside
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.95 }}
+          transition={{ duration: 0.3 }}
+          className="fixed bottom-6 right-6 z-[60] w-[20rem] max-w-[90vw] rounded-2xl border border-[#C2A679] bg-[#F9F7F3] shadow-2xl overflow-hidden"
         >
-          <p className="text-[#4b3b2d] italic mb-4">“{t.text}”</p>
-          <p className="font-semibold text-[#080844]">— {t.name}</p>
-        </motion.div>
-      ))}
-    </div>
-  </section>
-);
+          <div className="relative">
+            <div className="h-1 w-full bg-gradient-to-r from-[#3B4A3F] to-[#C2A679]" />
+            <button
+              onClick={dismiss}
+              className="absolute -top-2 -left-2 rounded-full bg-white/90 p-1 shadow hover:bg-white"
+            >
+              <X className="h-4 w-4 text-[#1C1C1C]" />
+            </button>
+          </div>
 
-/* 🔹 قسم الاشتراك */
-const SubscribeSection = () => (
-  <section className="py-16 text-center bg-[#fffaf3]">
-    <h2 className="text-2xl font-bold text-[#080844] mb-4">
-       اشترك ليصلك كل جديد
-    </h2>
-    <p className="text-[#4b3b2d] mb-6">
-      انضم لعائلة Spark of Positivity لتصلك أحدث الألعاب والعروض.
-    </p>
-    <form
-      onSubmit={(e) => e.preventDefault()}
-      className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto"
-    >
-      <input
-        type="email"
-        placeholder="ادخل بريدك الإلكتروني"
-        required
-        className="w-full sm:flex-1 px-4 py-3 border border-[#e1d5c9] rounded-full focus:outline-none focus:ring-2 focus:ring-[#080844] bg-[#fffdf8]"
-      />
-      <button
-        type="submit"
-        className="bg-[#080844] text-white px-8 py-3 rounded-full font-semibold hover:scale-105 transition-all duration-200 shadow-lg"
-      >
-         اشترك الآن
-      </button>
-    </form>
-  </section>
-  
-);
+          <div className="p-4" dir="rtl">
+            <div className="mb-3 flex items-center gap-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E9E2D0]">
+                <Gift className="h-5 w-5 text-[#3B4A3F]" />
+              </div>
+              <h3 className="text-lg font-bold text-[#1C1C1C]">🎁 عرض الأسبوع</h3>
+            </div>
 
-/* 🔹 مكون اختبار الشخصية */
-const QuizSection = () => {
-  const [step, setStep] = React.useState(0);
-  const [answers, setAnswers] = React.useState<string[]>([]);
-  const [result, setResult] = React.useState<string | null>(null);
+            <p className="text-sm leading-6 text-[#3B4A3F]">
+              خصم{" "}
+              <span className="font-extrabold text-[#C2A679]">25%</span> على أول طلب — استخدم الكود{" "}
+              <span className="rounded-md bg-[#F3EDE1] px-2 py-1 font-mono text-xs">
+                WELCOME25
+              </span>{" "}
+              🎉
+            </p>
 
-  const questions = [
+            <div className="mt-4 flex items-center justify-between">
+              <button
+                onClick={goToProducts}
+                className="rounded-xl bg-[#3B4A3F] px-4 py-2 text-sm font-semibold text-[#E9E2D0] shadow hover:bg-[#2F3A33]"
+              >
+                تسوق الآن
+              </button>
+              <button
+                onClick={dismiss}
+                className="text-xs text-[#6B6B6B] underline underline-offset-2 hover:text-[#3B4A3F]"
+              >
+                لاحقًا
+              </button>
+            </div>
+          </div>
+        </motion.aside>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// 🌿 الصفحة الرئيسية
+// 💬 مكون السلايدر الفاخر لآراء العملاء
+function TestimonialCarousel() {
+  const testimonials = [
     {
-      q: "كيف تفضل قضاء وقتك مع العائلة؟",
-      options: [
-        "جلسة دافئة وهادئة",
-        "ضحك ولعب وسوالف",
-        "خيال ومواقف مجنونة",
-      ],
+      name: "سارة م.",
+      text: "منتجات فاخرة وجودة ممتازة! التفاصيل الصغيرة تفرق فعلًا ❤️",
     },
     {
-      q: "ما نوع الألعاب التي تستمتع بها أكثر؟",
-      options: [
-        "اللي تخليك تتكلم وتفكر",
-        "اللي فيها تحدي وضحك",
-        "اللي تفتح خيالك وتخليك تضحك من قلبك",
-      ],
+      name: "خالد ر.",
+      text: "خدمة رائعة وسرعة في التوصيل 👌 تجربة راقية من البداية للنهاية.",
     },
     {
-      q: "اختر الجملة الأقرب لك:",
-      options: [
-        "أحب أسمع مشاعر الناس 💬",
-        "أحب أضحك وأكتشف أسرار الكل 😂",
-        "أعيش اللحظة بخيالي 🪄",
-      ],
+      name: "ليلى ك.",
+      text: "الأثاث أجمل من الصور، راقٍ جدًا ويناسب أي ذوق فاخر.",
     },
   ];
 
-  const handleAnswer = (answer: string) => {
-    const newAnswers = [...answers, answer];
-    setAnswers(newAnswers);
+  const [index, setIndex] = useState(0);
 
-    if (step + 1 < questions.length) {
-      setStep(step + 1);
-    } else {
-      const samar = newAnswers.filter((a) => a.includes("دافئة") || a.includes("مشاعر")).length;
-      const sawalif = newAnswers.filter((a) => a.includes("ضحك") || a.includes("أسرار")).length;
-      const khayal = newAnswers.filter((a) => a.includes("خيال") || a.includes("لحظة")).length;
+  useEffect(() => {
+    const timer = setInterval(
+      () => setIndex((prev) => (prev + 1) % testimonials.length),
+      5000
+    );
+    return () => clearInterval(timer);
+  }, [testimonials.length]);
 
-      if (samar > sawalif && samar > khayal) setResult("🎴 سمر");
-else if (sawalif > samar && sawalif > khayal) setResult("🏠 سوالف بيتنا");
-      else setResult("💭 تخيّل لو");
-    }
-  };
-
-  const restart = () => {
-    setStep(0);
-    setAnswers([]);
-    setResult(null);
-  };
+  const t = testimonials[index];
 
   return (
-    <div className="max-w-xl mx-auto bg-[#fff5e9] p-8 rounded-3xl shadow-md border border-[#f1e4d3]">
-      {!result ? (
-        <>
-          <h3 className="text-xl font-semibold mb-6 text-[#080844]">
-            {questions[step].q}
-          </h3>
-          <div className="flex flex-col gap-4">
-            {questions[step].options.map((opt, i) => (
-              <motion.button
-                key={i}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleAnswer(opt)}
-                className="bg-white border border-[#e1d5c9] text-[#3d2c1e] py-3 px-4 rounded-full hover:bg-[#080844] hover:text-white transition-all duration-200"
-              >
-                {opt}
-              </motion.button>
-            ))}
-          </div>
-        </>
-      ) : (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
-          <h3 className="text-2xl font-bold text-[#080844] mb-4">
-            اللعبة المناسبة لك هي:
-          </h3>
-          <p className="text-3xl font-extrabold text-[#3d2c1e] mb-6">
-            {result}
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={restart}
-            className="bg-[#080844] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition-all duration-200"
-          >
-            🔁 أعد الاختبار
-          </motion.button>
-        </motion.div>
-      )}
-    </div>
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.6 }}
+      className="relative bg-[#2F3A33]/40 backdrop-blur-md border border-[#C2A679]/30 rounded-3xl shadow-lg p-10 md:p-12"
+    >
+      <div className="text-[#C2A679] text-6xl mb-4 leading-none">“</div>
+      <p className="text-[#E9E2D0] text-xl md:text-2xl italic leading-relaxed mb-6">
+        {t.text}
+      </p>
+      <h4 className="text-[#C2A679] font-semibold text-lg">{t.name}</h4>
+      <div className="flex justify-center mt-4 text-[#C2A679]">
+        {[...Array(5)].map((_, i) => (
+          <Star
+            key={i}
+            className="w-5 h-5 drop-shadow-[0_0_4px_rgba(194,166,121,0.8)]"
+          />
+        ))}
+      </div>
+
+      {/* نقاط المؤشر */}
+      <div className="flex justify-center mt-6 gap-2">
+        {testimonials.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`w-3 h-3 rounded-full transition-all ${
+              i === index ? "bg-[#C2A679]" : "bg-[#E9E2D0]/30"
+            }`}
+          ></button>
+        ))}
+      </div>
+    </motion.div>
   );
-};
+}
+
+export default function FurnitureLandingPage() {
+  const [chatOpen, setChatOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    {
+      role: "bot",
+      text: "مرحباً 👋! أنا مساعد منزلك الراقي. كيف يمكنني مساعدتك اليوم؟",
+    },
+  ]);
+  const [input, setInput] = useState("");
+
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = "smooth";
+  }, []);
+
+  function sendMessage() {
+    if (!input.trim()) return;
+    setMessages([
+      ...messages,
+      { role: "user", text: input },
+      { role: "bot", text: "شكرًا لتواصلك! سنرد عليك قريبًا 💬" },
+    ]);
+    setInput("");
+  }
+const products = [
+  {
+    id: 1,
+    name: "كرسي فخم من المخمل",
+    price: 150,
+    image: "/images/chair-velvet.jpg",
+  },
+  {
+    id: 2,
+    name: "أريكة ثلاثية فاخرة",
+    price: 420,
+    image: "/images/sofa-luxury.jpg",
+  },
+  {
+    id: 3,
+    name: "طاولة طعام خشب طبيعي",
+    price: 350,
+    image: "/images/dining-table.jpg",
+  },
+  {
+    id: 4,
+    name: "سرير ملكي بتصميم عصري",
+    price: 720,
+    image: "/images/bed-modern.jpg",
+  },
+  {
+    id: 5,
+    name: "إضاءة سقفية نحاسية",
+    price: 180,
+    image: "/images/ceiling-lamp.jpg",
+  },
+  {
+    id: 6,
+    name: "خزانة أنيقة بلمسة معدنية",
+    price: 310,
+    image: "/images/wardrobe-metal.jpg",
+  },
+  {
+    id: 7,
+    name: "كرسي جلدي للمكتب",
+    price: 230,
+    image: "/images/office-chair.jpg",
+  },
+  {
+    id: 8,
+    name: "مكتبة جدارية خشبية",
+    price: 270,
+    image: "/images/wall-shelf.jpg",
+  },
+];
+
+
+  const testimonials = [
+    { name: "سارة م.", text: "منتجات فاخرة وجودة ممتازة!" },
+    { name: "خالد ر.", text: "خدمة رائعة وسرعة في التوصيل 👌" },
+    { name: "ليلى ك.", text: "الأثاث أجمل من الصور، راقٍ جدًا!" },
+  ];
+
+  return (
+    <main
+      dir="rtl"
+      className="min-h-screen bg-gradient-to-b from-[#F9F7F3] to-[#E9E2D0] text-[#1C1C1C] font-sans scroll-smooth"
+    >
+     {/* 🌟 Header - Premium Modern Design */}
+<header
+  className="fixed top-0 left-0 w-full z-50 transition-all duration-500"
+>
+  <div
+    className="backdrop-blur-lg bg-[#F9F7F3]/70 border-b border-[#C2A679]/30 shadow-sm"
+  >
+    <div className="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
+      {/* 🔸 Logo */}
+      <div className="flex items-center gap-2">
+        <span className="text-3xl font-extrabold text-[#3B4A3F] tracking-tight">
+          منزلك
+        </span>
+        <span className="text-3xl font-light text-[#C2A679]">الراقي</span>
+      </div>
+
+      {/* 🔹 Navigation */}
+      <nav className="hidden md:flex items-center gap-10 text-sm font-medium tracking-wide">
+        <a
+          href="#products"
+          className="text-[#1C1C1A] hover:text-[#C2A679] transition-colors duration-300"
+        >
+          المنتجات
+        </a>
+        <a
+          href="#gallery"
+          className="text-[#1C1C1A] hover:text-[#C2A679] transition-colors duration-300"
+        >
+          المعرض
+        </a>
+        <a
+          href="#testimonials"
+          className="text-[#1C1C1A] hover:text-[#C2A679] transition-colors duration-300"
+        >
+          الآراء
+        </a>
+        <a
+          href="#contact"
+          className="text-[#1C1C1A] hover:text-[#C2A679] transition-colors duration-300"
+        >
+          تواصل معنا
+        </a>
+      </nav>
+
+      {/* 🛍️ CTA Button */}
+      <button className="hidden md:block px-6 py-2.5 rounded-full bg-[#C2A679] text-[#1C1C1A] font-semibold text-sm shadow-md hover:bg-[#b89a63] transition-all duration-300">
+        تسوق الآن
+      </button>
+    </div>
+  </div>
+</header>
+
+      {/* Hero */}
+      <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+          <h1 className="text-5xl font-bold text-[#1C1C1C] leading-tight mb-6">
+            توازن مثالي بين <span className="text-[#3B4A3F]">الفخامة</span> والراحة
+          </h1>
+          <p className="text-[#6B6B6B] mb-8 text-lg leading-relaxed">
+            اكتشف مجموعتنا المختارة من الأثاث المصمم ليمنحك تجربة راقية تجمع بين الأناقة والدفء.
+          </p>
+          <div className="flex gap-4">
+            <button className="px-8 py-3 bg-[#3B4A3F] text-[#E9E2D0] rounded-2xl font-medium hover:bg-[#2F3A33] transition-all shadow-md">
+              تسوق الآن
+            </button>
+            <button className="px-8 py-3 bg-[#E9E2D0] rounded-2xl font-medium hover:bg-[#D6CFC2] transition-all">
+              اكتشف المزيد
+            </button>
+          </div>
+        </motion.div>
+
+        <motion.img
+          src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1000&q=80"
+          alt="Modern Furniture"
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="rounded-3xl shadow-2xl border border-[#D6CFC2]"
+        />
+      </section>
+
+      {/* Stats */}
+      <section className="relative z-20 -mt-10">
+        <div className="max-w-5xl mx-auto bg-[#F9F7F3] rounded-3xl shadow-xl border border-[#D6CFC2] flex flex-col md:flex-row justify-between items-center text-center px-8 py-8 gap-8">
+          {[
+            { number: 7, label: "سنوات الخبرة" },
+            { number: 2, label: "فروع داخل المملكة" },
+            { number: 10000, label: "قطعة أثاث مباعة" },
+            { number: 260, label: "تصميم مميز" },
+          ].map((item, i) => (
+            <div key={i} className="flex-1 relative">
+              <h3 className="text-3xl font-extrabold text-[#3B4A3F]">
+                <AnimatedCounter target={item.number} />+
+              </h3>
+              <p className="text-sm text-[#6B6B6B] mt-1">{item.label}</p>
+              {i < 3 && <div className="hidden md:block absolute top-0 right-0 h-full w-px bg-[#E9E2D0]" />}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 🌿 Why Choose Us - Background Image Version */}
+<section
+  id="why-us"
+  className="relative py-32 bg-fixed bg-center bg-cover"
+  style={{ backgroundImage: "url('/images/why-bg.jpg')" }}
+>
+  {/* طبقة غامقة شفافة لتوضيح النص */}
+  <div className="absolute inset-0 bg-[#1C1C1A]/70 backdrop-blur-[1px]" />
+
+  <div className="max-w-6xl mx-auto px-6 relative z-10 text-center text-[#E9E2D0]">
+    <motion.h2
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="text-5xl font-extrabold mb-6"
+    >
+      لماذا <span className="text-[#C2A679]">تختارنا؟</span>
+    </motion.h2>
+
+    <motion.p
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      viewport={{ once: true }}
+      className="max-w-3xl mx-auto text-lg mb-20 leading-relaxed text-[#E9E2D0]/90"
+    >
+      نحن لا نقدم أثاثًا فقط، بل <span className="text-[#C2A679] font-semibold">تجربة متكاملة</span> 
+      تمزج بين الجودة والتصميم والخدمة المتميزة — لتعيش كل يوم في منزل يعكس ذوقك.
+    </motion.p>
+
+    {/* 🧩 عناصر Why Us فوق الصورة */}
+    <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-10">
+      {[
+        {
+          title: "توصيل سريع",
+          desc: "نوصل طلبك خلال 48 ساعة في أغلب المدن.",
+          icon: Truck,
+          color: "bg-[#C2A679]/20",
+        },
+        {
+          title: "دفع آمن",
+          desc: "خيارات دفع موثوقة لحماية مشترياتك.",
+          icon: CreditCard,
+          color: "bg-[#C2A679]/20",
+        },
+        {
+          title: "تركيب مجاني",
+          desc: "فريق متخصص يقوم بالتركيب باحترافية وسرعة.",
+          icon: ShieldCheck,
+          color: "bg-[#C2A679]/20",
+        },
+        {
+          title: "ضمان جودة",
+          desc: "نضمن جودة منتجاتنا لأكثر من 10 سنوات.",
+          icon: Star,
+          color: "bg-[#C2A679]/20",
+        },
+      ].map((item, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: i * 0.15 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.05 }}
+          className="relative rounded-3xl p-8 border border-[#C2A679]/40 bg-[#2F3A33]/60 backdrop-blur-md shadow-xl transition-all duration-300 hover:bg-[#2F3A33]/80"
+        >
+          <div
+            className={`w-16 h-16 flex items-center justify-center mx-auto mb-6 rounded-2xl ${item.color} text-[#C2A679] shadow-lg`}
+          >
+            <item.icon className="w-8 h-8" />
+          </div>
+          <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+          <p className="text-sm text-[#E9E2D0]/80 leading-relaxed">{item.desc}</p>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+     {/* 🪑 Products Section */}
+<section id="products" className="max-w-7xl mx-auto px-6 py-20">
+  <motion.h2
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    viewport={{ once: true }}
+    className="text-4xl font-bold mb-12 text-center text-[#E9E2D0]"
+  >
+    منتجاتنا المختارة
+  </motion.h2>
+
+  <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+    {[
+  {
+    id: 1,
+    name: "كرسي فخم من المخمل",
+    price: 150,
+    image: "/images/chair-velvet.jpg",
+  },
+  {
+    id: 2,
+    name: "أريكة ثلاثية فاخرة",
+    price: 420,
+    image: "/images/sofa-luxury.jpg",
+  },
+  {
+    id: 3,
+    name: "طاولة طعام خشب طبيعي",
+    price: 350,
+    image: "/images/dining-table.jpg",
+  },
+  {
+    id: 4,
+    name: "سرير ملكي بتصميم عصري",
+    price: 720,
+    image: "/images/bed-modern.jpg",
+  },
+  {
+    id: 5,
+    name: "إضاءة سقفية نحاسية",
+    price: 180,
+    image: "/images/ceiling-lamp.jpg",
+  },
+  {
+    id: 6,
+    name: "خزانة أنيقة بلمسة معدنية",
+    price: 310,
+    image: "/images/wardrobe-metal.jpg",
+  },
+  {
+    id: 7,
+    name: "كرسي جلدي للمكتب",
+    price: 230,
+    image: "/images/office-chair.jpg",
+  },
+  {
+    id: 8,
+    name: "مكتبة جدارية خشبية",
+    price: 270,
+    image: "/images/wall-shelf.jpg",
+  },
+].map((p, i) => (
+  <motion.div
+    key={i}
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: i * 0.1 }}
+    viewport={{ once: true }}
+    whileHover={{ scale: 1.03 }}
+    className="bg-[#2F3A33] rounded-2xl shadow-lg hover:shadow-2xl transition overflow-hidden border border-[#C2A679]/40"
+  >
+    <img
+      src={p.image}
+      alt={p.name}
+      className="rounded-t-2xl aspect-[4/3] object-cover"
+    />
+    <div className="p-5 flex justify-between items-center">
+      <div>
+        <h3 className="font-semibold text-lg text-[#E9E2D0]">{p.name}</h3>
+        <p className="text-[#C2A679] text-sm mt-1">${p.price}</p>
+      </div>
+      <button className="bg-[#C2A679] hover:bg-[#b69660] text-[#1C1C1A] p-2 rounded-xl transition shadow">
+        <ShoppingCart className="w-4 h-4" />
+      </button>
+    </div>
+  </motion.div>
+))}
+
+  </div>
+</section>
+{/* 🖼️ معرض الصور + 🎥 فيديو جانبي (شبكة فاخرة) */}
+<section
+  id="gallery"
+  className="py-24 bg-[#1C1C1A] relative overflow-hidden"
+>
+  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
+    {/* 🎥 الفيديو على اليسار */}
+    <motion.div
+      initial={{ opacity: 0, x: -40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#C2A679]/40"
+    >
+      <video
+        src="/galary.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="w-full h-[480px] object-cover rounded-3xl"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1A]/50 to-transparent pointer-events-none"></div>
+    </motion.div>
+
+    {/* 🖼️ شبكة الصور على اليمين */}
+    <motion.div
+      initial={{ opacity: 0, x: 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="text-center"
+    >
+ 
+      <p className="text-[#C2A679] text-base md:text-lg mb-10 leading-relaxed max-w-md mx-auto">
+        لقطات من واقع الجمال — تفاصيل تصنع الفخامة وتروي قصة كل تصميم.
+      </p>
+
+      {/* شبكة الصور */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {[
+          "/images/gallery-1.jpg",
+          "/images/gallery-2.jpg",
+          "/images/gallery-3.jpg",
+          "/images/gallery-4.jpg",
+          "/images/gallery-5.jpg",
+          "/images/gallery-6.jpg",
+          "/images/gallery-7.jpg",
+          "/images/gallery-8.jpg",
+        ].map((src, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: i * 0.05 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05 }}
+            className="overflow-hidden rounded-2xl border border-[#C2A679]/30 shadow-lg hover:shadow-[#C2A679]/30 transition-all duration-300"
+          >
+            <img
+              src={src}
+              alt={`Gallery ${i + 1}`}
+              className="w-full h-[110px] sm:h-[120px] md:h-[100px] lg:h-[110px] xl:h-[115px] object-cover"
+            />
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  </div>
+</section>
+
+
+
+
+     {/* 💬 قسم آراء العملاء - تصميم فاخر ومتحرك */}
+<section
+  id="testimonials"
+  className="relative py-28 bg-gradient-to-b from-[#1C1C1A] via-[#2F3A33] to-[#1C1C1A] overflow-hidden"
+>
+  {/* زخرفة خلفية فخمة */}
+  <div className="absolute inset-0">
+    <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#C2A679]/10 rounded-full blur-3xl"></div>
+    <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#3B4A3F]/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
+    <motion.h2
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="text-5xl font-extrabold text-[#E9E2D0] mb-4"
+    >
+      آراء <span className="text-[#C2A679]">عملائنا</span>
+    </motion.h2>
+
+    <motion.p
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      viewport={{ once: true }}
+      className="text-[#D6CFC2] text-lg mb-16 leading-relaxed max-w-2xl mx-auto"
+    >
+      ثقة عملائنا هي سر نجاحنا — تجارب حقيقية تلهمنا لنواصل تقديم الأناقة والراحة في كل قطعة.
+    </motion.p>
+
+    {/* السلايدر الفاخر */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="relative w-full max-w-3xl mx-auto"
+    >
+      <TestimonialCarousel />
+    </motion.div>
+  </div>
+</section>
+
+
+      {/* Footer */}
+      <footer id="contact" className="bg-[#1C1C1C] text-[#E9E2D0] py-12">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-sm">
+          <div>
+            <div className="text-lg font-bold mb-2 text-[#C2A679]">منزلك الراقي</div>
+            <p className="text-[#D6CFC2] leading-relaxed">
+              الأناقة تبدأ من المنزل — أثاث فاخر يجمع بين الفخامة والطبيعة.
+            </p>
+          </div>
+          <div>
+            <div className="font-semibold mb-2 text-[#C2A679]">روابط سريعة</div>
+            <ul className="space-y-1 text-[#D6CFC2]">
+              <li>المنتجات</li>
+              <li>الضمان</li>
+              <li>التوصيل</li>
+              <li>سياسة الإرجاع</li>
+            </ul>
+          </div>
+          <div>
+            <div className="font-semibold mb-2 text-[#C2A679]">تواصل معنا</div>
+            <ul className="space-y-1 text-[#D6CFC2]">
+              <li>📞 920000000</li>
+              <li>✉️ info@manzilk.com</li>
+              <li>📍 الرياض - المملكة العربية السعودية</li>
+            </ul>
+          </div>
+        </div>
+        <div className="text-center text-xs text-[#A8A29E] mt-8">
+          © {new Date().getFullYear()} منزلك الراقي. جميع الحقوق محفوظة.
+        </div>
+      </footer>
+
+      {/* Chatbot */}
+      <button
+        onClick={() => setChatOpen(true)}
+        className="fixed bottom-6 left-6 bg-[#3B4A3F] p-4 rounded-full text-[#E9E2D0] shadow-xl hover:bg-[#2F3A33] transition-all"
+      >
+        <MessageCircle className="w-6 h-6" />
+      </button>
+
+      <AnimatePresence>
+        {chatOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            className="fixed bottom-6 left-6 bg-[#F9F7F3] rounded-3xl shadow-2xl w-80 overflow-hidden border border-[#D6CFC2]"
+          >
+            <div className="bg-[#3B4A3F] text-[#E9E2D0] p-3 flex justify-between items-center">
+              <span>مساعد منزلك الراقي</span>
+              <button onClick={() => setChatOpen(false)}>
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="p-3 h-64 overflow-y-auto space-y-2 text-sm">
+              {messages.map((m, i) => (
+                <div
+                  key={i}
+                  className={`${
+                    m.role === "bot"
+                      ? "text-right text-[#3B4A3F]"
+                      : "text-left text-[#C2A679]"
+                  }`}
+                >
+                  {m.text}
+                </div>
+              ))}
+            </div>
+            <div className="p-3 flex gap-2 border-t border-[#E9E2D0]">
+              <input
+                className="flex-1 border rounded-xl px-3 py-2 text-sm border-[#D6CFC2]"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="اكتب رسالتك..."
+              />
+              <button
+                onClick={sendMessage}
+                className="bg-[#3B4A3F] text-[#E9E2D0] rounded-xl px-3 py-2 hover:bg-[#2F3A33]"
+              >
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Promo Widget */}
+      <PromoWidget />
+    </main>
+  );
+}
