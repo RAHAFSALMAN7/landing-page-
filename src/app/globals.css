@@ -1,17 +1,12 @@
 @import "tailwindcss";
 
+/* 🎨 ألوان وأساسيات */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* 🌓 للوضع الليلي */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,11 +14,27 @@
   }
 }
 
+/* ✨ تعريف قيم Tailwind المخصصة */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* لو بتستخدم خطوط Next.js */
+  --font-sans: var(--font-el-messiri);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* 🩶 إعدادات الجسم العامة */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-el-messiri), sans-serif; /* ✅ استخدم الخط العربي */
+  font-style: normal; /* أو oblique 8deg لو حابب ميلان خفيف */
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+/* 🖼️ قسم الهيرو */
 .hero-section {
   background-image: url('/banar.jpg');
   background-repeat: no-repeat;
@@ -39,6 +50,7 @@ body {
   }
 }
 
+/* 🌈 حركة التدرج اللوني */
 @keyframes gradientMove {
   0% {
     background-position: 0% 50%;
