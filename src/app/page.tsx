@@ -1,4 +1,5 @@
 "use client";
+import Script from "next/script";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,9 +28,6 @@ const images = [
   "/images/gallery-9.jpg",
   "/images/gallery-10.jpg",
 ];
-
-
-
   const [index, setIndex] = useState(0);
 
   const next = () => setIndex((prev) => (prev + 1) % images.length);
@@ -185,74 +183,6 @@ function PromoWidget() {
 }
 
 // 🌿 الصفحة الرئيسية
-// 💬 مكون السلايدر الفاخر لآراء العملاء
-function TestimonialCarousel() {
-  const testimonials = [
-    {
-      name: "سارة م.",
-      text: "منتجات فاخرة وجودة ممتازة! التفاصيل الصغيرة تفرق فعلًا ❤️",
-    },
-    {
-      name: "خالد ر.",
-      text: "خدمة رائعة وسرعة في التوصيل 👌 تجربة راقية من البداية للنهاية.",
-    },
-    {
-      name: "ليلى ك.",
-      text: "الأثاث أجمل من الصور، راقٍ جدًا ويناسب أي ذوق فاخر.",
-    },
-  ];
-
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(
-      () => setIndex((prev) => (prev + 1) % testimonials.length),
-      5000
-    );
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
-
-  const t = testimonials[index];
-
-  return (
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
-      transition={{ duration: 0.6 }}
-      className="relative bg-[#2F3A33]/40 backdrop-blur-md border border-[#C2A679]/30 rounded-3xl shadow-lg p-10 md:p-12"
-    >
-      <div className="text-[#C2A679] text-6xl mb-4 leading-none">“</div>
-      <p className="text-[#E9E2D0] text-xl md:text-2xl italic leading-relaxed mb-6">
-        {t.text}
-      </p>
-      <h4 className="text-[#C2A679] font-semibold text-lg">{t.name}</h4>
-      <div className="flex justify-center mt-4 text-[#C2A679]">
-        {[...Array(5)].map((_, i) => (
-          <Star
-            key={i}
-            className="w-5 h-5 drop-shadow-[0_0_4px_rgba(194,166,121,0.8)]"
-          />
-        ))}
-      </div>
-
-      {/* نقاط المؤشر */}
-      <div className="flex justify-center mt-6 gap-2">
-        {testimonials.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              i === index ? "bg-[#C2A679]" : "bg-[#E9E2D0]/30"
-            }`}
-          ></button>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
 export default function FurnitureLandingPage() {
   const [chatOpen, setChatOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -410,15 +340,27 @@ const products = [
           </div>
         </motion.div>
 
-        <motion.img
-          src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1000&q=80"
-          alt="Modern Furniture"
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="rounded-3xl shadow-2xl border border-[#D6CFC2]"
-        />
-      </section>
+        <motion.div
+  initial={{ opacity: 0, x: 80 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8 }}
+  className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#D6CFC2]"
+>
+  <video
+    src="/galary1.mp4"
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="w-full h-full object-cover rounded-3xl"
+      style={{ width: "100%", maxWidth: "700px", height: "400px", margin: "0 auto" }} // 👈 تحكمي هون بالطول والعرض
+
+  />
+  {/* طبقة شفافة لإضافة تأثير فخم فوق الفيديو */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1A]/30 to-transparent pointer-events-none"></div>
+</motion.div>
+</section>
+
 
       {/* Stats */}
       <section className="relative z-20 -mt-10">
@@ -646,7 +588,8 @@ const products = [
       viewport={{ once: true }}
       className="text-center"
     >
- 
+      <h2 className="text-4xl font-bold mb-6 text-[#E9E2D0]">معرض الصور</h2>
+
       <p className="text-[#C2A679] text-base md:text-lg mb-10 leading-relaxed max-w-md mx-auto">
         لقطات من واقع الجمال — تفاصيل تصنع الفخامة وتروي قصة كل تصميم.
       </p>
@@ -687,24 +630,18 @@ const products = [
 
 
 
-     {/* 💬 قسم آراء العملاء - تصميم فاخر ومتحرك */}
+     {/* 💬 Testimonials Section - فخم ومميز */}
 <section
   id="testimonials"
-  className="relative py-28 bg-gradient-to-b from-[#1C1C1A] via-[#2F3A33] to-[#1C1C1A] overflow-hidden"
+  className="relative py-24 bg-gradient-to-b from-[#2F3A33] to-[#1C1C1A] overflow-hidden"
 >
-  {/* زخرفة خلفية فخمة */}
-  <div className="absolute inset-0">
-    <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#C2A679]/10 rounded-full blur-3xl"></div>
-    <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#3B4A3F]/10 rounded-full blur-3xl"></div>
-  </div>
-
-  <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
+  <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
     <motion.h2
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="text-5xl font-extrabold text-[#E9E2D0] mb-4"
+      className="text-4xl font-bold text-[#E9E2D0] mb-6"
     >
       آراء <span className="text-[#C2A679]">عملائنا</span>
     </motion.h2>
@@ -712,26 +649,48 @@ const products = [
     <motion.p
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
+      transition={{ duration: 0.7, delay: 0.2 }}
       viewport={{ once: true }}
-      className="text-[#D6CFC2] text-lg mb-16 leading-relaxed max-w-2xl mx-auto"
+      className="max-w-2xl mx-auto text-[#D6CFC2] mb-16 leading-relaxed"
     >
-      ثقة عملائنا هي سر نجاحنا — تجارب حقيقية تلهمنا لنواصل تقديم الأناقة والراحة في كل قطعة.
+      ثقة عملائنا هي سر نجاحنا — آراء حقيقية من عملاء جربوا الفخامة والراحة مع <strong>منزلك الراقي</strong>.
     </motion.p>
 
-    {/* السلايدر الفاخر */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="relative w-full max-w-3xl mx-auto"
-    >
-      <TestimonialCarousel />
-    </motion.div>
+    <div className="grid md:grid-cols-3 gap-8">
+      {testimonials.map((t, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: i * 0.2 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.03 }}
+          className="relative backdrop-blur-xl bg-white/10 border border-[#C2A679]/20 rounded-3xl shadow-2xl p-8 text-center transition-all duration-300 hover:border-[#C2A679]/60"
+        >
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-[#3B4A3F] flex items-center justify-center shadow-md">
+            <Star className="w-6 h-6 text-[#C2A679]" />
+          </div>
+          <p className="text-[#E9E2D0] italic leading-relaxed mt-6 mb-4">“{t.text}”</p>
+          <p className="font-semibold text-[#C2A679]">{t.name}</p>
+          <div className="flex justify-center mt-3 text-[#C2A679]">
+            {[...Array(5)].map((_, j) => (
+              <Star
+                key={j}
+                className="w-4 h-4 drop-shadow-[0_0_4px_rgba(194,166,121,0.8)]"
+              />
+            ))}
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+
+  {/* زخرفة خلفية فاخرة */}
+  <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#C2A679]/10 rounded-full blur-3xl" />
+    <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#3B4A3F]/20 rounded-full blur-3xl" />
   </div>
 </section>
-
 
       {/* Footer */}
       <footer id="contact" className="bg-[#1C1C1C] text-[#E9E2D0] py-12">
@@ -765,62 +724,25 @@ const products = [
         </div>
       </footer>
 
-      {/* Chatbot */}
-      <button
-        onClick={() => setChatOpen(true)}
-        className="fixed bottom-6 left-6 bg-[#3B4A3F] p-4 rounded-full text-[#E9E2D0] shadow-xl hover:bg-[#2F3A33] transition-all"
-      >
-        <MessageCircle className="w-6 h-6" />
-      </button>
-
-      <AnimatePresence>
-        {chatOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            className="fixed bottom-6 left-6 bg-[#F9F7F3] rounded-3xl shadow-2xl w-80 overflow-hidden border border-[#D6CFC2]"
-          >
-            <div className="bg-[#3B4A3F] text-[#E9E2D0] p-3 flex justify-between items-center">
-              <span>مساعد منزلك الراقي</span>
-              <button onClick={() => setChatOpen(false)}>
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="p-3 h-64 overflow-y-auto space-y-2 text-sm">
-              {messages.map((m, i) => (
-                <div
-                  key={i}
-                  className={`${
-                    m.role === "bot"
-                      ? "text-right text-[#3B4A3F]"
-                      : "text-left text-[#C2A679]"
-                  }`}
-                >
-                  {m.text}
-                </div>
-              ))}
-            </div>
-            <div className="p-3 flex gap-2 border-t border-[#E9E2D0]">
-              <input
-                className="flex-1 border rounded-xl px-3 py-2 text-sm border-[#D6CFC2]"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="اكتب رسالتك..."
-              />
-              <button
-                onClick={sendMessage}
-                className="bg-[#3B4A3F] text-[#E9E2D0] rounded-xl px-3 py-2 hover:bg-[#2F3A33]"
-              >
-                <Send className="w-4 h-4" />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  
 
       {/* Promo Widget */}
       <PromoWidget />
+            {/* 🧩 Chat Widget Script */}
+      <Script
+        src="/js/chat-widget.js"
+        strategy="afterInteractive"
+data-webhook="/api/chat"
+        data-primary-color="#3B4A3F"
+        data-secondary-color="#C2A679"
+        data-user-bg="#3B4A3F"
+        data-bot-bg="#F9F7F3"
+        data-user-text="#E9E2D0"
+        data-bot-text="#1C1C1A"
+        data-welcome="مرحبًا 👋! كيف يمكنني مساعدتك اليوم؟"
+        data-branding="💬 مدعوم من منزلك الراقي"
+      />
+
     </main>
   );
 }
